@@ -1,4 +1,6 @@
-<img width="397" align="center" alt="banner" src="https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/176329a2-4d1e-4abb-9756-a78eec715148">
+<p align="center">
+  <img width="600" alt="banner" src="https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/176329a2-4d1e-4abb-9756-a78eec715148">
+</p>
 
 # Proposal 
 Introducing "ECommPlus" - A Comprehensive E-commerce Platform
