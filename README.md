@@ -53,11 +53,11 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 | GET /products | ProductController::getProductList | 200 ProductListView | Retrieve all products |
 | PUT /products/:id | ProductController::updateProduct | 302 /products/:id | Update a product |
 | DELETE /products/:id | ProductController::deleteProduct | 204 (No Content) | Delete a product |
-| POST /products/:id/:id | ProductController::addProductCategory | 302 /products/:id  | Adds category to a product |
-| PUT /products/:id/:id | ProductController::updateProductCategory | 302 /products/:id  | Updates category of a product |
-| DELETE /products/:id/:id | ProductController::deleteProductCategory | 302 /products/:id  | deletes category of a product |
+| POST /products/categories/:id | ProductController::addProductCategory | 302 /products/:id  | Adds category to a product |
+| PUT /products/categories/:id | ProductController::updateProductCategory | 302 /products/:id  | Updates category of a product |
+| DELETE /products/categories/:id | ProductController::deleteProductCategory | 302 /products/:id  | deletes category of a product |
 | PUT /products/:id | ProductController::updateProduct | 401 ErrorView | Unauthorized error if not logged in by admin |
-| DELETE /products/:id/:id | ProductController::deleteProductCategory | 403 ErrorView  | Forbidden because not admin user |
+| DELETE /products/categories/:id | ProductController::deleteProductCategory | 403 ErrorView  | Forbidden because not admin user |
 
 ### Category Management
 | Request | Action | Response | Description |
