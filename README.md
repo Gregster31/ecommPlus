@@ -37,7 +37,8 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 - As an administrator, I want to manage payment methods so that I can configure payment gateway integrations.
 
 # Entity Relationships
-![image info](./mermaid-diagram-2024-04-25-095723.png)
+![database](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/ebd2e96f-435c-4910-a2e2-95418383738e)
+
 
 # API Routes
 ### Product Management
@@ -87,10 +88,7 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 | DELETE /orders/:id | OrderController::deleteOrder | 204 (No Content) | Delete an order |
 | GET /orders/:id | OrderController::getOrder | 404 ErrorView | Order not found |
 | PUT /orders/:id | OrderController::updateOrder | 401 ErrorView | Cannot update an order while logged out or no user logged in |
-
 # Wire Frames
-![customer-main-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/ac258cc3-343e-4258-87e8-2ca73dee71e5)
-![customer-account-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/4b40e81d-206e-43df-8fc5-59df0634e859)
-![admin-edit-products-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/eebbda51-575d-4321-9ee3-503da57aa167)
-
-
+![wireframe1](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/792856e4-e25a-4df8-8f48-0802eebc57c4)
+![wireframe2](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/7c0c0de5-2ae9-4340-88c3-486935ddf91c)
+![wireframe3](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/506b527f-283a-416b-8e1a-7dd264d18435)
