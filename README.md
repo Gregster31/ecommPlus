@@ -101,6 +101,7 @@ erDiagram
 
     PAYMENT {
         int CreditCardNumber PK
+        int CustomerId FK
         int OrderId FK
     }
 
@@ -110,7 +111,8 @@ erDiagram
     ORDER }o--|| ADDRESS : has
     ORDERDETAIL }o--|| ORDER : has
     ORDERDETAIL }|--|| PRODUCT : has
-    ORDER ||--}| PAYMENT : has
+    ORDER ||--|| PAYMENT : has
+    CUSTOMER ||--}| PAYMENT : has
 ```
 
 
