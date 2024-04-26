@@ -63,7 +63,7 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 | Request | Action | Response | Description |
 | ----------- | ----------- | ----------- | ----------- |
 | POST /categories | CategoryController::createCategory | 201 /categories | Create a new category |
-| GET /categories/:id | CategoryController::getProductCategory | 302 /products/category/:id  | Retrieve a category by ID |
+| GET /categories/:id | CategoryController::getProductCategory | 302 /products/category/:id  | Retrieve all products from a specific category |
 | PUT /categories/:id | CategoryController::updateCategory | 302 /categories | Update a category |
 | DELETE /categories/:id | CategoryController::deleteCategory | 302 /categories | Delete a category |
 | GET /categories | CategoryController::getCategoryList | 200 CategoryListView  | Retrieve list of category |
@@ -96,3 +96,6 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 ![wireframe1](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/792856e4-e25a-4df8-8f48-0802eebc57c4)
 ![wireframe2](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/7c0c0de5-2ae9-4340-88c3-486935ddf91c)
 ![wireframe3](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/506b527f-283a-416b-8e1a-7dd264d18435)
+![customer-product-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/d6754667-356d-4177-b084-6fa5d25d1ad5)
+![customer-shopping-cart-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/fe351424-634c-414e-a058-99cc57f682c3)
+
