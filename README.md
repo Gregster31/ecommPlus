@@ -41,7 +41,77 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 - As an administrator, I want to manage payment methods so that I can configure payment gateway integrations.
 
 # Entity Relationships
-![database](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/ebd2e96f-435c-4910-a2e2-95418383738e)
+```mermaid
+erDiagram
+    PRODUCT {
+        int ProductId PK
+        string(50) Title
+        string(100) Author
+        string(100) Description
+        date DatePublished
+        string(100) Publisher
+        decimal Price
+        char(13) Isbn
+        int Inventory
+        int CategoryId FK
+    }
+
+    CATEGORY {
+        int CategoryId PK
+        string(50) CategoryName
+    }
+
+    CUSTOMER {
+        int CustomerId PK
+        string(50) Email
+        string(50) FirstName
+        string(50) Lastname
+        date DateOfBirth
+        char(10) PhoneNumber
+        string Password
+        string(20) UserName
+        bool isAdmin
+    }
+    
+    ADDRESS {
+        int AddressId PK
+        int StreetNumber
+        int CivicNumber
+        string(50) StreetName
+        string(50) City
+        char(2) Province
+        char(2) Country
+        char(6) PostalCode
+        int CustomerId FK
+    }
+
+    ORDER {
+        int OrderId PK
+        date OrderDate
+        decimal TotalPrice
+        int CustomerId FK
+        int AddressId FK
+    }
+
+    ORDERDETAIL {
+        int OrderId PK, FK
+        int ProductId PK, FK
+        decimal UnitPrice
+    }
+
+    PAYMENT {
+        int CreditCardNumber PK
+        int OrderId FK
+    }
+
+    CUSTOMER ||--}| ADDRESS : has
+    PRODUCT }o--|| CATEGORY : "belongs to"
+    CUSTOMER ||--}o ORDER : places
+    ORDER }o--|| ADDRESS : has
+    ORDERDETAIL }o--|| ORDER : has
+    ORDERDETAIL }|--|| PRODUCT : has
+    ORDER ||--}| PAYMENT : has
+```
 
 
 # API Routes
