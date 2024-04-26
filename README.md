@@ -87,4 +87,10 @@ ECommercePlus is a robust and user-friendly e-commerce platform designed to prov
 | DELETE /orders/:id | OrderController::deleteOrder | 204 (No Content) | Delete an order |
 | GET /orders/:id | OrderController::getOrder | 404 ErrorView | Order not found |
 | PUT /orders/:id | OrderController::updateOrder | 401 ErrorView | Cannot update an order while logged out or no user logged in |
+
 # Wire Frames
+![customer-main-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/ac258cc3-343e-4258-87e8-2ca73dee71e5)
+![customer-account-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/4b40e81d-206e-43df-8fc5-59df0634e859)
+![admin-edit-products-view](https://github.com/JAC-CS-Web-Programming-II-W24/project-ecommplus/assets/123277418/eebbda51-575d-4321-9ee3-503da57aa167)
+
+
