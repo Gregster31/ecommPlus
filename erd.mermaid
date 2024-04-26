@@ -1,72 +1,69 @@
 erDiagram
-    PROJECT ||--o{ TASK : contains
-    PROJECT ||--o{ USER_PROJECT : "is managed by"
-    USER |o--o{ TASK : "assigned to"
-    USER ||--o{ USER_PROJECT : "works on"
-    TASK ||--o{ SUBTASK : has
-    TASK ||--o{ NOTIFICATION: emits
-    TASK ||--o{ COMMENT: has
-    USER ||--o{ COMMENT: writes
-    NOTIFICATION ||--o{ USER_NOTIFICATION: pings
-    USER ||--o{ USER_NOTIFICATION: receives
-
-    USER_PROJECT {
-        int user_id PK, FK
-        int project_id PK, FK
+    PRODUCT {
+        int ProductId PK
+        string(50) Title
+        string(100) Author
+        string(100) Description
+        date DatePublished
+        string(100) Publisher
+        decimal Price
+        char(13) Isbn
+        int Inventory
+        int CategoryId FK
     }
 
-    TASK {
-        int id PK
-        string title
-        string description
-        enum status "complete | in progress | unassigned | blocked"
-        date created_at
-        date edited_at
-        int project_id FK
-        int assignee FK
+    CATEGORY {
+        int CategoryId PK
+        string(50) CategoryName
     }
 
-    SUBTASK {
-        int id PK
-        string title
-        date created_at
-        date edited_at
-        int task_id FK
+    CUSTOMER {
+        int CustomerId PK
+        string(50) Email
+        string(50) FirstName
+        string(50) Lastname
+        date DateOfBirth
+        char(10) PhoneNumber
+        string Password
+        string(20) UserName
+        bool isAdmin
+    }
+    
+    ADDRESS {
+        int AddressId PK
+        int StreetNumber
+        int CivicNumber
+        string(50) StreetName
+        string(50) City
+        char(2) Province
+        char(2) Country
+        char(6) PostalCode
+        int CustomerId FK
     }
 
-    PROJECT {
-        int id PK
-        string title
-        string description
-        date created_at
-        date edited_at
+    ORDER {
+        int OrderId PK
+        date OrderDate
+        decimal TotalPrice
+        int CustomerId FK
+        int AddressId FK
     }
 
-    USER {
-        int id PK
-        string email
-        string name
-        date created_at
-        date edited_at
+    ORDERDETAIL {
+        int OrderId PK, FK
+        int ProductId PK, FK
+        decimal UnitPrice
     }
 
-    COMMENT {
-        int id PK
-        string content
-        date created_at
-        date edited_at
-        id user_id FK "comment author"
-        id task_id FK
+    PAYMENT {
+        int CreditCardNumber PK
+        int OrderId FK
     }
 
-    NOTIFICATION {
-        int id PK
-        string content
-        date created_at
-        id task_id FK
-    }
-
-    USER_NOTIFICATION {
-        int user_id PK, FK
-        int notification_id PK, FK
-    }
+    CUSTOMER ||--}| ADDRESS : has
+    PRODUCT }o--|| CATEGORY : "belongs to"
+    CUSTOMER ||--}o ORDER : places
+    ORDER }o--|| ADDRESS : has
+    ORDERDETAIL }o--|| ORDER : has
+    ORDERDETAIL }|--|| PRODUCT : has
+    ORDER ||--}| PAYMENT : has
