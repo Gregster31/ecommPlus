@@ -45,6 +45,6 @@ For config options, see https://github.com/devcontainers/templates/tree/main/src
 			"editor.formatOnSave": true, // Enable formatting on save in VS Code.
 			"editor.defaultFormatter": "esbenp.prettier-vscode" // Set Prettier as the default formatter in VS Code.
 		}
-	},
+	}
 	// "postCreateCommand": "npm install && npx playwright install --with-deps firefox" // The command to run after the dev container is created.
 }
