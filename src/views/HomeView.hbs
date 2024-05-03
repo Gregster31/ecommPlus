@@ -1,5 +1,25 @@
 {{> Header }}
 
-<h1>Homepage!</h1>
+<section class="hero">
+    <h1>E-Commerce Plus</h1>
+    <p>{{ message }}</p>
+</section>
+
+<section class="features">
+    <h2>Key Features</h2>
+    <div class="feature-cards">
+		{{#each features}}
+		<div class="feature-card">
+            <h3>{{ title }}</h3>
+            <p>{{ description }}</p>
+        </div>
+		{{/each}}
+    </div>
+</section>
+
+<section class="testimonial">
+    <blockquote>"Super app to buy useless products!" - Kitty Perry</blockquote>
+</section>
 
 {{> Footer }}
+

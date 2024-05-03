@@ -49,11 +49,29 @@ export default class Server {
 
 		this.router.get("/", (req: Request, res: Response) => {
 			res.send({
+				// Opens up the homePage
 				statusCode: StatusCode.OK,
 				message: "Homepage!",
 				template: "HomeView",
 				payload: {
-					title: "My App",
+					title: "E-Commerce App",
+					features: [
+						{
+							title: "Seamless online shopping experience.",
+							description:
+								"Browse and purchase products from various categories, manage their orders, and track their shipments.",
+						},
+						{
+							title: "Buy products",
+							description:
+								"Easy to buy products.",
+						},
+						{
+							title: "Sell products",
+							description:
+								"Easy to sell products.",
+						},
+					],
 				},
 			});
 		});
