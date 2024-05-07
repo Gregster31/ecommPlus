@@ -24,6 +24,16 @@ export default class Controller {
 	 * @example router.get("/todos", this.getTodoList);
 	 */
 	registerRoutes(router: Router) {
+		router.get("/homeview", this.getHomeView);
 		// Any routes that include a `:id` parameter should be registered last.
 	}
+
+	getHomeView = async (req: Request, res: Response) => {
+
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "HomeView",
+			template: `HomeView`
+    	});
+	};
 }
