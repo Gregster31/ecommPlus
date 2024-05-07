@@ -1,25 +1,40 @@
 {{> Header }}
 
-<section class="hero">
-    <h1>E-Commerce Plus</h1>
-    <p>{{ message }}</p>
-</section>
-
-<section class="features">
-    <h2>Key Features</h2>
-    <div class="feature-cards">
-		{{#each features}}
-		<div class="feature-card">
-            <h3>{{ title }}</h3>
-            <p>{{ description }}</p>
-        </div>
-		{{/each}}
+<div class="banner-container">
+    <img src="../../../images/banner-image.png" alt="Banner Image">
+    <div class="banner-text">
+        <h1>Opening Sales</h1>
+        <p>Discover amazing products and deals for our grand opening!</p>
     </div>
-</section>
+</div>
 
-<section class="testimonial">
-    <blockquote>"Super app to buy useless products!" - Kitty Perry</blockquote>
-</section>
+<div class="featured-products">
+    <h3>Featured Products</h3>
+    
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="../../../images/placeholder-image.jpg" alt="Product Image">
+            <div class="text">Product 1</div>
+            <div class="price">$10.99</div>
+        </div>
+        <div class="grid-item">
+            <img src="../../../images/placeholder-image.jpg" alt="Product Image">
+            <div class="text">Product 2</div>
+            <div class="price">$15.99</div>
+        </div>
+        <div class="grid-item">
+            <img src="../../../images/placeholder-image.jpg" alt="Product Image">
+            <div class="text">Product 3</div>
+            <div class="price">$20.99</div>
+        </div>
+        <div class="grid-item">
+            <img src="../../../images/placeholder-image.jpg" alt="Product Image">
+            <div class="text">Product 4</div>
+            <div class="price">$25.99</div>
+        </div>
+    </div>
+</div>
+
 
 {{> Footer }}
 
