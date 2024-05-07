@@ -2,6 +2,7 @@
 body {
     background-color: #ffffff; 
     color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
@@ -40,6 +41,18 @@ body {
     color: black;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+.nav-icon img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /* MAIN */
@@ -137,3 +150,57 @@ footer {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin: 60px; 
+}
+
+/* LOGIN FORM  */
+.login-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px orange; /* Might need to change, looks like piss */
+}
+
+.login-box h1,
+.login-box form {
+    text-align: center;
+}
+
+.login-box h1 {
+    color: black;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"],
+.login-box button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-box button {
+    background-color: rgba(112, 112, 112, 0.507);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: orange;
+}
+
+.login-box a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #2675e2;
+    font-size: 13px;
+}

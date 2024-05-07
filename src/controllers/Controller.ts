@@ -25,15 +25,24 @@ export default class Controller {
 	 */
 	registerRoutes(router: Router) {
 		router.get("/homeview", this.getHomeView);
+		router.get("/login", this.getLoginForm);
 		// Any routes that include a `:id` parameter should be registered last.
 	}
 
 	getHomeView = async (req: Request, res: Response) => {
-
 		await res.send({
 			statusCode: StatusCode.OK,
 			message: "HomeView",
 			template: `HomeView`
     	});
+	};
+
+	getLoginForm = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Login form retrieved",
+			template: "LoginForm",
+			payload: { error: req.getSearchParams().get("error")},
+		});
 	};
 }
