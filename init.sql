@@ -3,6 +3,9 @@ CREATE DATABASE "MyDB";
 
 \c MyDB;
 
+DROP TYPE IF EXISTS order_status;
+CREATE TYPE order_status AS ENUM ('incomplete', 'complete');
+
 DROP TABLE IF EXISTS "customer";
 CREATE TABLE "customer" (
     "id" SERIAL PRIMARY KEY,
@@ -21,6 +24,8 @@ CREATE TABLE "order" (
     "id" SERIAL PRIMARY KEY,
     "order_date" TIMESTAMP NOT NULL,
     "total_price" DECIMAL NOT NULL,
+    status order_status NOT NULL DEFAULT 'incomplete',
+    completed_at TIMESTAMP,
     "customer_id" INTEGER REFERENCES customer(id) ON DELETE CASCADE,
     "address_id" INTEGER REFERENCES address(id) ON DELETE CASCADE
 );
