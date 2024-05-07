@@ -1,0 +1,139 @@
+/* TEMPORARY TESTING */
+body {
+    background-color: #ffffff; 
+    color: #fff;
+}
+
+/* HEADER */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 25px;
+    border: 2px solid orange; 
+    border-radius: 10px; 
+    margin-bottom: 20px;
+}
+
+.logo-div img {
+    width: 100px; 
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 40px;
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* MAIN */
+
+main {
+    border: 2px solid orange; 
+    border-radius: 10px; 
+}
+
+/* FOOTER */
+footer {
+    background-color: #b9b9b9a8;
+    color: #1615158c;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+
+/* BANNER IMAGE */
+.banner-container {
+    position: relative;
+    border-radius: 10px; 
+}
+
+.banner-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; 
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.banner-text h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: 18px;
+}
+
+/* Featured Products */
+.featured-products {
+    padding: 15px;
+}
+
+.featured-products h3 {
+    text-align: center;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* GRID STYLE FOR FEATURED PRODUCTS */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+.grid-item {
+    background-color: #f0f0f0; 
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.grid-item img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+.text {
+    font-weight: bold;
+    margin-top: 10px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.price {
+    color: green;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+

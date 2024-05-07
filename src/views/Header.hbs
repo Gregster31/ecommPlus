@@ -5,15 +5,34 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{{ styles 'style.css' }}">
+	<link rel="icon" type="image/x-icon" href="../../../images/favicon.ico">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-HV5IOk56YZOjXLrQqA1o7KGU0JkL5bt+eF58T31tofBz2cxT7+JCF2FNT3c90+o3guTw/b2T/6+rMc5lObb9QQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
 	<title>{{ title }}</title>
 </head>
 
 <body>
-	<header>
-		<nav>
-			<ul>
-				<li><a href="{{ path '' }}">Home</a></li>
+	<div class="header-container">
+		{{!-- LOGO DIV --}}
+		<div class="logo-div">
+			<a href="{{ path 'homeview' }}"><img src="../../../images/web_logo.png" alt="E-Commerce-Plus-logo"></a>
+		</div>
+
+		{{!-- CATEGORY CHOICE --}}
+		<div class="choice-div">
+			<ul class="nav-links">
+				<li><a href="#">Men</a></li>
+				<li><a href="#">Women</a></li>
 			</ul>
-		</nav>
-	</header>
+		</div>
+
+		{{!-- ICONS (ACCOUNT, SHOPPINGCART) --}}
+		<div class="icons-div">
+			<ul class="nav-links">
+    			<li><a href="#"><img src="../../../images/bag-shopping-solid.svg" alt="Shopping Bag"></a></li>
+    			<li><a href="#"><img src="../../../images/user-solid.svg" alt="User"></a></li>
+			</ul>
+		</div>
+	</div>
+
 	<main>
