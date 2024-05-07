@@ -26,6 +26,8 @@ export default class Controller {
 	registerRoutes(router: Router) {
 		router.get("/homeview", this.getHomeView);
 		router.get("/login", this.getLoginForm);
+		router.get("/register", this.getRegistrationForm);
+
 		// Any routes that include a `:id` parameter should be registered last.
 	}
 
@@ -43,6 +45,16 @@ export default class Controller {
 			message: "Login form retrieved",
 			template: "LoginForm",
 			payload: { error: req.getSearchParams().get("error")},
+		});
+	};
+
+	getRegistrationForm = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Registration form retrieved",
+			template: "RegistrationForm",
+			// Print out the error from URL
+			payload: {error: req.getSearchParams().get("error")}
 		});
 	};
 }
