@@ -7,7 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ styles 'style.css' }}">
 	<link rel="icon" type="image/x-icon" href="../../../images/favicon.ico">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-HV5IOk56YZOjXLrQqA1o7KGU0JkL5bt+eF58T31tofBz2cxT7+JCF2FNT3c90+o3guTw/b2T/6+rMc5lObb9QQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
+	{{!-- <script src="../../../styles/actions.js"></script> --}}
+
 	<title>{{ title }}</title>
 </head>
 
@@ -15,7 +16,7 @@
 	<div class="header-container">
 		{{!-- LOGO DIV --}}
 		<div class="logo-div">
-			<a href="{{ path 'homeview' }}"><img src="../../../images/web_logo.png" alt="E-Commerce-Plus-logo"></a>
+			<a href="{{ path 'homeview' }}"><img src="../../../images/newlogo.png" alt="E-Commerce-Plus-logo"></a>
 		</div>
 
 		{{!-- CATEGORY CHOICE --}}
@@ -28,9 +29,10 @@
 
 		{{!-- ICONS (ACCOUNT, SHOPPINGCART) --}}
 		<div class="icons-div">
-			<ul class="nav-links">
-    			<li><a href="{{ path 'login' }}" class="nav-icon"><img src="../../../images/shopping-cart.png" alt="Shopping Cart"></a></li>
-    			<li><a href="{{ path 'login' }}" class="nav-icon" ><img src="../../../images/user.png" alt="User"></a></li>
+			<ul class="icon-links">
+				<li><a href="{{ path 'historyPurchase' }}" class="nav-icon"><img src="../../../images/history.png" alt="Purchase History"></a></li>
+    			<li><a href="{{ path 'shoppingCart' }}" class="nav-icon"><img src="../../../images/shopping-bag.png" alt="Shopping Cart"></a></li>
+				<li><a href="{{ path 'login' }}" class="nav-icon" ><img src="../../../images/user.png" alt="User"></a></li>
 			</ul>
 		</div>
 	</div>

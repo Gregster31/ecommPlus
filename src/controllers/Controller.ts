@@ -26,6 +26,11 @@ export default class Controller {
 	registerRoutes(router: Router) {
 		router.get("/homeview", this.getHomeView);
 		router.get("/login", this.getLoginForm);
+		router.get("/register", this.getRegistrationForm);
+		router.get("/shoppingCart", this.getShoppingCart);
+		router.get("/historyPurchase", this.getHistoryPurchase);
+		router.get("/product", this.productView);
+
 		// Any routes that include a `:id` parameter should be registered last.
 	}
 
@@ -42,6 +47,44 @@ export default class Controller {
 			statusCode: StatusCode.OK,
 			message: "Login form retrieved",
 			template: "LoginForm",
+			payload: { error: req.getSearchParams().get("error")},
+		});
+	};
+
+	getRegistrationForm = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Registration form retrieved",
+			template: "RegistrationForm",
+			// Print out the error from URL
+			payload: {error: req.getSearchParams().get("error")}
+		});
+	};
+
+	getHistoryPurchase = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "History retrieved",
+			template: "History",
+			payload: { error: req.getSearchParams().get("error")},
+		});
+	};
+
+	productView = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Product retrieved",
+			template: "ProductView",
+			// Print out the error from URL
+			payload: {error: req.getSearchParams().get("error")}
+		});
+	};
+
+	getShoppingCart = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Shopping Cart retrieved",
+			template: "ShoppingCart",
 			payload: { error: req.getSearchParams().get("error")},
 		});
 	};
