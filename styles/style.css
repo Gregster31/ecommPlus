@@ -11,14 +11,14 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    padding: 25px;
-    border: 2px solid orange; 
+    padding: 20px;
+    border: 2px solid #037859; 
     border-radius: 10px; 
     margin-bottom: 20px;
 }
 
 .logo-div img {
-    width: 100px; 
+    width: 50px; 
 }
 
 .nav-links {
@@ -43,11 +43,35 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
+/* ICON STYLING HEADER */
+.icon-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.icon-links li {
+    margin-right: 10px;
+}
+
+.icon-links li:last-child {
+    margin-right: 0;
+}
+
+.icon-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .nav-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
+    width: 25px;
     height: 30px;
 }
 .nav-icon img {
@@ -55,12 +79,6 @@ body {
     max-height: 100%;
 }
 
-/* MAIN */
-
-main {
-    border: 2px solid orange; 
-    border-radius: 10px; 
-}
 
 /* FOOTER */
 footer {
@@ -151,27 +169,22 @@ footer {
 }
 
 
-.login-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px; 
-}
-
-/* LOGIN FORM  */
+/* LOGIN STYLING */
 .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 300px;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px orange; /* Might need to change, looks like piss */
+    box-shadow: 0 0 20px #037859; 
 }
 
 .login-box h1,
 .login-box form {
     text-align: center;
-}
-
-.login-box h1 {
     color: black;
 }
 
@@ -192,9 +205,8 @@ footer {
     border: none;
     cursor: pointer;
 }
-
 .login-box button:hover {
-    background-color: orange;
+    background-color: #037859;
 }
 
 .login-box a {
