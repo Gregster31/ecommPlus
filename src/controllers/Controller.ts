@@ -24,7 +24,7 @@ export default class Controller {
 	 * @example router.get("/todos", this.getTodoList);
 	 */
 	registerRoutes(router: Router) {
-		router.get("/homeview", this.getHomeView);
+		router.get("/productList", this.getProductList);
 		router.get("/login", this.getLoginForm);
 		router.get("/register", this.getRegistrationForm);
 		router.get("/shoppingCart", this.getShoppingCart);
@@ -34,11 +34,11 @@ export default class Controller {
 		// Any routes that include a `:id` parameter should be registered last.
 	}
 
-	getHomeView = async (req: Request, res: Response) => {
+	getProductList = async (req: Request, res: Response) => {
 		await res.send({
 			statusCode: StatusCode.OK,
-			message: "HomeView",
-			template: `HomeView`
+			message: "productList received",
+			template: `ProductList`,
     	});
 	};
 
