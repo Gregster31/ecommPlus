@@ -205,7 +205,7 @@ footer {
     border: none;
     cursor: pointer;
 }
-.login-box button:hover {
+button:hover {
     background-color: #037859;
 }
 
@@ -215,6 +215,117 @@ footer {
     text-decoration: none;
     color: #2675e2;
     font-size: 13px;
+}
+
+
+/* PRODUCT VIEW STYLE */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.image-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-div img {
+    max-width: 100%;
+    height: auto;
+}
+
+.info-div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: black
+}
+
+.top-right, .middle-right, .bottom-right {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-right h2, .middle-right h5 {
+    margin: 0;
+}
+
+.bottom-right li {
+    list-style: none;
+    margin: 0;
+}
+
+
+/* Shopping cart style */
+.productsCart-div {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.Product-info-div {
+    width: 75%;
+    color: black;
+}
+
+.Product-info-div h2 {
+    margin-bottom: 10px;
+}
+
+.Product-info-div table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Product-info-div th, .Product-info-div td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.Product-info-div th {
+    background-color: #f2f2f2;
+}
+
+.Product-info-div img {
+    max-width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.checkout-div {
+    width: 20%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+    margin-left: 90px; 
+    margin-top: 100px;
+}
+
+.checkout-div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtotal-div, .total-div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.purchase-history-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

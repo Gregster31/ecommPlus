@@ -29,6 +29,7 @@ export default class Controller {
 		router.get("/register", this.getRegistrationForm);
 		router.get("/shoppingCart", this.getShoppingCart);
 		router.get("/historyPurchase", this.getHistoryPurchase);
+		router.get("/product", this.productView);
 
 		// Any routes that include a `:id` parameter should be registered last.
 	}
@@ -66,6 +67,16 @@ export default class Controller {
 			message: "History retrieved",
 			template: "History",
 			payload: { error: req.getSearchParams().get("error")},
+		});
+	};
+
+	productView = async (req: Request, res: Response) => {
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Product retrieved",
+			template: "ProductView",
+			// Print out the error from URL
+			payload: {error: req.getSearchParams().get("error")}
 		});
 	};
 
