@@ -127,11 +127,11 @@ footer {
 }
 
 /* Featured Products */
-.featured-products {
+.show-products {
     padding: 15px;
 }
 
-.featured-products h3 {
+.show-products h3 {
     text-align: center;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
