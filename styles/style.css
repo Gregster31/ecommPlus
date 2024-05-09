@@ -216,3 +216,20 @@ footer {
     color: #2675e2;
     font-size: 13px;
 }
+
+
+
+
+/* PLACEHOLDER CODE */
+.cart-items {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #037859; 
+    color: black;
+}
