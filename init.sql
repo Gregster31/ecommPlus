@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS "MyDB";
-CREATE DATABASE "MyDB";
+DROP DATABASE IF EXISTS "ECommDB";
+CREATE DATABASE "ECommDB";
 
-\c MyDB;
+\c ECommDB;
 
 DROP TYPE IF EXISTS order_status;
 CREATE TYPE order_status AS ENUM ('incomplete', 'complete');
