@@ -6,7 +6,7 @@ const sql = postgres({
 });
 
 const main = async () => {
-  const url = "https://fakestoreapi.com/products/1"; // Change
+  const url = "https://fakestoreapi.com/products/"; // Change
   const response = await axios.get(url);
 
   console.log(response.data);
