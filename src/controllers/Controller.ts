@@ -2,6 +2,7 @@ import postgres from "postgres";
 import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
+import { title } from "process";
 
 /**
  * Controller for handling Todo CRUD operations.
@@ -39,6 +40,7 @@ export default class Controller {
 			statusCode: StatusCode.OK,
 			message: "productList received",
 			template: `ProductList`,
+			payload: {title: "All Products"}
     	});
 	};
 
@@ -47,7 +49,7 @@ export default class Controller {
 			statusCode: StatusCode.OK,
 			message: "Login form retrieved",
 			template: "LoginForm",
-			payload: { error: req.getSearchParams().get("error")},
+			payload: { error: req.getSearchParams().get("error"), title: "Login"},
 		});
 	};
 
@@ -57,7 +59,7 @@ export default class Controller {
 			message: "Registration form retrieved",
 			template: "RegistrationForm",
 			// Print out the error from URL
-			payload: {error: req.getSearchParams().get("error")}
+			payload: {error: req.getSearchParams().get("error"), title: "Registration"}
 		});
 	};
 
@@ -66,7 +68,7 @@ export default class Controller {
 			statusCode: StatusCode.OK,
 			message: "History retrieved",
 			template: "History",
-			payload: { error: req.getSearchParams().get("error")},
+			payload: { error: req.getSearchParams().get("error"), title: "History"},
 		});
 	};
 
@@ -76,7 +78,7 @@ export default class Controller {
 			message: "Product retrieved",
 			template: "ProductView",
 			// Print out the error from URL
-			payload: {error: req.getSearchParams().get("error")}
+			payload: {error: req.getSearchParams().get("error"), title: "Product"}
 		});
 	};
 
@@ -85,7 +87,7 @@ export default class Controller {
 			statusCode: StatusCode.OK,
 			message: "Shopping Cart retrieved",
 			template: "ShoppingCart",
-			payload: { error: req.getSearchParams().get("error")},
+			payload: { error: req.getSearchParams().get("error"), title: "ShoppingCart"},
 		});
 	};
 }
