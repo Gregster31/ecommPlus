@@ -2,6 +2,7 @@ import postgres from "postgres";
 import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
+import Product, { ProductProps } from '../models/Products';
 import { title } from "process";
 
 /**
@@ -25,6 +26,7 @@ export default class Controller {
 	 * @example router.get("/todos", this.getTodoList);
 	 */
 	registerRoutes(router: Router) {
+		router.get("/", this.getHomeView)
 		router.get("/productList", this.getProductList);
 		router.get("/login", this.getLoginForm);
 		router.get("/register", this.getRegistrationForm);
@@ -34,6 +36,23 @@ export default class Controller {
 
 		// Any routes that include a `:id` parameter should be registered last.
 	}
+
+	getHomeView = async (req: Request, res: Response) => {
+		let products: Product[] = [];
+		products = await Product.readAll(this.sql);
+		// Only take the first 4 products (Featured products in HomeView)
+		let firstFourProducts = await products.slice(0,4);
+
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "productList received",
+			template: `HomeView`,
+			payload: {
+				title: "Home",
+				products: firstFourProducts,
+			}
+    	});
+	};
 
 	getProductList = async (req: Request, res: Response) => {
 		await res.send({

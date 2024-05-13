@@ -6,6 +6,7 @@ import Controller from "./controllers/Controller";
 import postgres from "postgres";
 import fs from "fs/promises";
 import SessionManager from "./auth/SessionManager";
+import Product, { ProductProps } from './models/Products';
 import Cookie from "./auth/Cookie";
 
 /**
@@ -47,39 +48,7 @@ export default class Server {
 
 		this.controller.registerRoutes(this.router);
 		
-		try {
-			
-		} catch (error) {
-			
-		}
-		this.router.get("/", (req: Request, res: Response) => {
-			res.send({
-				// Opens up the homePage
-				statusCode: StatusCode.OK,
-				message: "Homepage!",
-				template: "HomeView",
-				payload: {
-					title: "E-Commerce App",
-					features: [
-						{
-							title: "Seamless online shopping experience.",
-							description:
-								"Browse and purchase products from various categories, manage their orders, and track their shipments.",
-						},
-						{
-							title: "Buy products",
-							description:
-								"Easy to buy products.",
-						},
-						{
-							title: "Sell products",
-							description:
-								"Easy to sell products.",
-						},
-					],
-				},
-			});
-		});
+		this.router.get("/", this.controller.getHomeView);
 	}
 
 	/**

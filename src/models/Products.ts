@@ -54,8 +54,8 @@ export default class Product {
     }
 
     static async readAll(sql: postgres.Sql<any>) {
-        const connection = await sql.reserve();
-
+        let connection = await sql.reserve();
+        
         const rows = await connection<ProductProps[]>`
             SELECT * FROM product
         `;

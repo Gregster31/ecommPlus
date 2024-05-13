@@ -148,11 +148,17 @@ footer {
     background-color: #f0f0f0; 
     padding: 20px;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .grid-item img {
     max-width: 100%; 
     height: auto; 
+    width: 200px;
+    height: 230px;
 }
 
 .text {
@@ -343,3 +349,4 @@ button:hover {
     box-shadow: 0 0 20px #037859; 
     color: black;
 }
+

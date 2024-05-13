@@ -12,26 +12,13 @@
     <h3>Featured Products</h3>
     
     <div class="grid-container">
-        <div class="grid-item">
-            <a href="{{ path 'product' }}"><img src="../../../images/placeholder-image.jpg" alt="Product Image"></a>
-            <div class="text">Product 1</div>
-            <div class="price">$10.99</div>
-        </div>
-        <div class="grid-item">
-            <a href="{{ path 'product' }}"><img src="../../../images/placeholder-image.jpg" alt="Product Image"></a>
-            <div class="text">Product 2</div>
-            <div class="price">$15.99</div>
-        </div>
-        <div class="grid-item">
-            <a href="{{ path 'product' }}"><img src="../../../images/placeholder-image.jpg" alt="Product Image"></a>
-            <div class="text">Product 3</div>
-            <div class="price">$20.99</div>
-        </div>
-        <div class="grid-item">
-            <a href="{{ path 'product' }}"><img src="../../../images/placeholder-image.jpg" alt="Product Image"></a>
-            <div class="text">Product 4</div>
-            <div class="price">$25.99</div>
-        </div>
+        {{#each products}}
+            <div class="grid-item">
+                <a href="{{ path 'product' }}"><img src="{{ this.props.url }}" alt="Product Image"></a>
+                <div class="text">{{this.props.title}}</div>
+                <div class="price">${{this.props.price}}</div>
+            </div>
+        {{/each}} 
     </div>
 </div>
 
