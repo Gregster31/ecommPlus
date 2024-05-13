@@ -35,6 +35,8 @@ export default class Controller {
 		router.get("/product", this.productView);
 
 		// Any routes that include a `:id` parameter should be registered last.
+		router.get("/products/:id", this.getSingleProduct);
+
 	}
 
 	getHomeView = async (req: Request, res: Response) => {
@@ -50,6 +52,44 @@ export default class Controller {
 			payload: {
 				title: "Home",
 				products: firstFourProducts,
+			}
+    	});
+	};
+
+	getSingleProduct = async (req: Request, res: Response, ) => {
+		const id = req.getId();
+
+		if (isNaN(id)) {
+			await res.send({
+				statusCode: StatusCode.BadRequest,
+				message: "Invalid ID",
+				template: "ErrorView",
+			});
+			return;
+		}
+
+		let product: Product | null = null;
+
+		try {
+			product = await Product.read(this.sql, id);
+
+		} catch (error) {
+			const message = `Error while getting todo list: ${error}`;
+			console.error(message);
+			await res.send({
+				statusCode: StatusCode.InternalServerError,
+				message: message,
+				template: "ErrorView",
+			});
+		}
+
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "product received",
+			template: "ProductView",
+			payload: {
+				title: "Product",
+				product: product,
 			}
     	});
 	};

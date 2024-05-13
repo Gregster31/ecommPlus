@@ -2,18 +2,17 @@
 
 <div class="container">
     <div class="image-div">
-        <img src="../../../images/placeholder-image.jpg" alt="Product">
+        <img src="{{ product.props.url }}" alt="Product Image">
     </div>
     <div class="info-div">
         <div class="top-right">
-            <h2>Title of Product</h2>
+            <h2>{{product.props.title}}</h2>
         </div>
         <div class="middle-right">
-            <h5>$789.80</h5>
+            <h5>${{product.props.price}}</h5>
         </div>
         <div class="bottom-right">
-            <li>Color: Black</li>
-            <li>Brand: Adidas</li>
+            <p >{{product.props.description}}</p>
         </div>
         <button>Add to Cart</button>
     </div>

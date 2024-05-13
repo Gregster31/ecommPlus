@@ -205,8 +205,10 @@ footer {
     box-sizing: border-box;
 }
 
-.login-box button {
+button {
     background-color: rgba(112, 112, 112, 0.507);
+    border-radius: 10px;
+    padding: 10px;
     color: white;
     border: none;
     cursor: pointer;
@@ -230,6 +232,9 @@ button:hover {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .image-div {
@@ -239,7 +244,7 @@ button:hover {
 }
 
 .image-div img {
-    max-width: 100%;
+    max-width: 70%;
     height: auto;
 }
 
@@ -247,14 +252,14 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: black
+    color: black;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .top-right, .middle-right, .bottom-right {
-    background-color: #f0f0f0;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .top-right h2, .middle-right h5 {
@@ -277,6 +282,8 @@ button:hover {
 .Product-info-div {
     width: 75%;
     color: black;
+    display: flex;
+    justify-self: center;
 }
 
 .Product-info-div h2 {

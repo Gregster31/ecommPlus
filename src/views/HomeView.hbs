@@ -14,7 +14,7 @@
     <div class="grid-container">
         {{#each products}}
             <div class="grid-item">
-                <a href="{{ path 'product' }}"><img src="{{ this.props.url }}" alt="Product Image"></a>
+                <a href="{{ path 'products' }}/{{ this.props.id }}"><img src="{{ this.props.url }}" alt="Product Image"></a>
                 <div class="text">{{this.props.title}}</div>
                 <div class="price">${{this.props.price}}</div>
             </div>
