@@ -15,8 +15,9 @@ CREATE TABLE "category" (
 DROP TABLE IF EXISTS "product";
 CREATE TABLE "product" (
     "id" SERIAL PRIMARY KEY,
-    "title" VARCHAR(50) NOT NULL,
-    "description" VARCHAR(100) NOT NULL,
+    "title" VARCHAR(150) NOT NULL,
+    "description" VARCHAR(650) NOT NULL, --Might need to be changed to more, some desc are insanely long
+    "url" VARCHAR(150) NOT NULL,
     "date" TIMESTAMP NOT NULL,
     "price" DECIMAL NOT NULL,
     "inventory" INTEGER NOT NULL,

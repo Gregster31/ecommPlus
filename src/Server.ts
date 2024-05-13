@@ -46,7 +46,12 @@ export default class Server {
 		this.controller = new Controller(this.sql);
 
 		this.controller.registerRoutes(this.router);
-
+		
+		try {
+			
+		} catch (error) {
+			
+		}
 		this.router.get("/", (req: Request, res: Response) => {
 			res.send({
 				// Opens up the homePage

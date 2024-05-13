@@ -8,18 +8,18 @@ const sql = postgres({
 const main = async () => {
   const url = "https://fakestoreapi.com/products/"; // Change
   const response = await axios.get(url);
-
-  console.log(response.data);
+  
+  // console.log(response.data);
 
   try {
-    // await sql`
-    //   INSERT INTO todos ("title", "description")
-    //   VALUES (${response.data.name}, ${response.data.name})
-    // `;
-    await sql`
-    INSERT INTO product ("title", "description", "date", "price", "inventory")
-    VALUES (${response.data.title}, ${response.data.description}, NOW(), ${response.data.price}, 0)
-    `;
+    response.data.forEach(async (product: any) => {
+      console.log(product)
+      await sql`
+      INSERT INTO product ("title", "description", "date", "price", "inventory", "url")
+      VALUES (${product.title}, ${product.description}, NOW(), ${product.price}, 0, ${product.image})
+      `;
+    });
+
 
     console.log("Successfully inserted! CTRL+C to exit.");
   } catch (error) {
