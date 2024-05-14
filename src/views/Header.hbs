@@ -22,8 +22,10 @@
 		{{!-- CATEGORY CHOICE --}}
 		<div class="choice-div">
 			<ul class="nav-links">
-				<li><a href="{{ path 'productList' }}">Men</a></li>
-				<li><a href="{{ path 'productList' }}">Women</a></li>
+				<li><a href="{{ path 'categories' }}">All Categories</a></li>
+				{{#each categories}}
+				<li><a href="{{ path 'categories' }}/{{ this.id }}">{{this.name}}</a></li>
+				{{/each}}
 			</ul>
 		</div>
 
