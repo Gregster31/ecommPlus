@@ -30,7 +30,7 @@ export default class Category {
         const connection = await sql.reserve();
 
         const [row] = await connection<CategoryProps[]>`
-            SELECT * FROM category WHERE id = ${id}
+            SELECT * FROM product WHERE category_id = ${id}
         `;
 
         await connection.release();

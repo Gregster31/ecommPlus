@@ -2,8 +2,9 @@ import postgres from "postgres";
 import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
-import Product, { ProductProps } from '../models/Products';
+import Product,  { ProductProps } from '../models/Products';
 import { title } from "process";
+import Category from "../models/Category";
 
 /**
  * Controller for handling Todo CRUD operations.
@@ -45,6 +46,11 @@ export default class Controller {
 		// Only take the first 4 products (Featured products in HomeView)
 		let firstFourProducts = await products.slice(0,4);
 
+		const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});	
+
 		await res.send({
 			statusCode: StatusCode.OK,
 			message: "productList received",
@@ -52,6 +58,7 @@ export default class Controller {
 			payload: {
 				title: "Home",
 				products: firstFourProducts,
+				categories: categoriesList,
 			}
     	});
 	};

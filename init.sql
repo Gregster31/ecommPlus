@@ -9,7 +9,7 @@ CREATE TYPE order_status AS ENUM ('incomplete', 'complete');
 DROP TABLE IF EXISTS "category";
 CREATE TABLE "category" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(50) NOT NULL
+    "name" VARCHAR(50) NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS "product";
@@ -77,3 +77,5 @@ CREATE TABLE "payment" (
     "customer_id" INTEGER REFERENCES "customer"(id) ON DELETE CASCADE,
     "order_id" INTEGER REFERENCES "order"(id) ON DELETE CASCADE
 );
+
+

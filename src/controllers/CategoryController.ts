@@ -4,6 +4,7 @@ import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
 import { snakeToCamel } from "../utils";
+import Product from "../models/Products";
 
 export default class CategoryController {
     private sql: postgres.Sql<any>;
@@ -109,21 +110,22 @@ export default class CategoryController {
         const id = req.getId();
         
         try {
-            const category = await Category.read(this.sql, id);
-            if (!category) {
+            const categoryProducts = await Category.read(this.sql, id);
+            if (!categoryProducts) {
                 await res.send({
                     statusCode: StatusCode.NotFound,
-                    message: "Category not found"
+                    message: "Category not found",
                 });
                 return;
             }            
-            const products = await this.getProductByCategoryID(id);
             
             await res.send({
                 statusCode: StatusCode.Redirect,
-                redirect: `/products/category/${category.props.id}`,
-				message: " ",
-                payload: products
+                redirect: `productList`,
+				message: "",
+                payload: {
+                    products: categoryProducts,
+                }
             });
         } catch (error) {
             console.error("Error while fetching category:", error);
@@ -216,9 +218,5 @@ export default class CategoryController {
                 message: "Error while fetching category list"
             });
         }
-    };
-
-    //TODO but in another controller//
-    private getProductByCategoryID = async (categoryID: number) => {        
     };
 }
