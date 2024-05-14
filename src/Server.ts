@@ -11,6 +11,7 @@ import Cookie from "./auth/Cookie";
 import AuthController from "./controllers/AuthController";
 import CustomerController from "./controllers/CustomerController";
 import CategoryController from "./controllers/CategoryController";
+import ProductController from "./controllers/ProductController";
 
 
 /**
@@ -39,6 +40,7 @@ export default class Server {
 	private authController: AuthController;
 	private customerController: CustomerController;
 	private cateoryController: CategoryController;
+	private productController: ProductController;
 
 
 	/**
@@ -56,6 +58,7 @@ export default class Server {
 		this.authController = new AuthController(this.sql);
 		this.customerController = new CustomerController(this.sql);
 		this.cateoryController = new CategoryController(this.sql);
+		this.productController = new ProductController(this.sql);
 		
 		this.controller.registerRoutes(this.router);		
 
@@ -64,6 +67,7 @@ export default class Server {
 		this.authController.registerRoutes(this.router);
 		this.customerController.registerRoutes(this.router);
 		this.cateoryController.registerRoutes(this.router);
+		this.productController.registerRoutes(this.router);
 
 
 	}

@@ -1,0 +1,34 @@
+{{> Header }}
+
+<h1>Create Product</h1>
+
+<form method="POST" action="/products" id="new-product-form">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+        <label for="url">URL:</label>
+        <input type="url" id="url" name="url" required>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+    </div>
+    <div>
+        <label for="inventory">Inventory:</label>
+        <input type="number" id="inventory" name="inventory" required>
+    </div>
+    <div>
+        <label for="category_id">Category ID:</label>
+        <input type="number" id="category_id" name="category_id" required>
+    </div>
+
+    <button type="submit" id="new-product-form-submit-button">Create Product</button>
+</form>
+
+{{> Footer }}
