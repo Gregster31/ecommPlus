@@ -49,7 +49,7 @@ export default class Customer {
 
             return new Customer(sql, convertToCase(snakeToCamel, row) as CustomerProps);
         } finally {
-            await connection.end();
+            await connection.release();
         }
     }
 

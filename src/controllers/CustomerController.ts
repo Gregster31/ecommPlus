@@ -29,17 +29,7 @@ export default class CustomerController {
       password,
       userName,
       isAdmin,
-    } = req.body;
-    const existingCustomer = await Customer.read(this.sql, req.body.id);
-    if (existingCustomer) {
-      await res.send({
-        statusCode: StatusCode.BadRequest,
-        template: "ErrorView",
-        message: "Customer already exists",
-      });
-      return;
-    }
-
+    } = req.body;    
     try {
       const customer = await Customer.create(this.sql, {
         email,
@@ -54,6 +44,7 @@ export default class CustomerController {
       await res.send({
         statusCode: StatusCode.Created,
         message: "Customer created successfully",
+        redirect: "/login",
         payload: { customer: customer.props },
       });
     } catch (error) {
