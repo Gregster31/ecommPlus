@@ -1,0 +1,14 @@
+{{> Header }}
+
+<h1>Create Category</h1>
+
+<form method="POST" action="/categories" id="new-category-form">
+    <div>
+        <label for="name">Category Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <button type="submit" id="new-category-form-submit-button">Create Category</button>
+</form>
+
+{{> Footer }}

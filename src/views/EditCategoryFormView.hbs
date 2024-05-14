@@ -1,0 +1,16 @@
+{{> Header }}
+
+<h1>Edit Category</h1>
+
+<form action="/categories/{{category.id}}" method="POST" id="edit-category-form">
+    <input type="hidden" name="method" value="PUT">
+    <fieldset>
+        <label>
+            Category Name
+            <input type="text" name="name" id="name" value="{{category.name}}" required>
+        </label>
+    </fieldset>
+    <input type="submit" value="Update Category" id="edit-category-form-submit-button">
+</form>
+
+{{> Footer }}

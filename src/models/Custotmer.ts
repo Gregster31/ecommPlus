@@ -18,6 +18,19 @@ export interface CustomerProps {
     isAdmin: boolean;
 }
 
+export class DuplicateEmailError extends Error {
+	constructor() {
+		super("User with this email already exists.");
+	}
+}
+
+export class InvalidCredentialsError extends Error {
+	constructor() {
+		super("Invalid credentials.");
+	}
+}
+
+
 export default class Customer {
     constructor(
         private sql: postgres.Sql<any>,
@@ -39,6 +52,17 @@ export default class Customer {
             await connection.end();
         }
     }
+
+    static async login(sql: postgres.Sql<any>,email: string,password: string,): Promise<Customer> 
+	{
+		const result = await sql`
+            SELECT * FROM customer WHERE email = ${email} AND password = ${password}
+        `;
+        if (result.length === 0) {
+            throw new InvalidCredentialsError();
+        }
+		return new Customer(sql, convertToCase(snakeToCamel, result[0]) as CustomerProps);
+	}
 
     static async read(sql: postgres.Sql<any>, id: number) {
         const connection = await sql.reserve();

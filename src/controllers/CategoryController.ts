@@ -13,12 +13,75 @@ export default class CategoryController {
     }
 
     registerRoutes(router: Router) {
+        router.get("/categories/new", this.getNewCategoryForm);
         router.post("/categories", this.createCategory);
+		router.get("/categories/:id/edit", this.getEditCategoryForm);
         router.get("/categories/:id", this.getProductCategory);
         router.put("/categories/:id", this.updateCategory);
         router.delete("/categories/:id", this.deleteCategory);
         router.get("/categories", this.getCategoryList);
     }
+
+    getNewCategoryForm = async (req: Request, res: Response) => {
+		let session = req.getSession();
+		// let userId = session.get("userId");
+		// let user = await User.read(this.sql, userId);
+		// let isAdmin = user?.props.isAdmin;
+		// let isLoggedIn = session.get("isLoggedIn");
+		// if (!req.session.get("userId")) {
+		// 	await res.send({
+		// 		statusCode: StatusCode.Unauthorized,
+		// 		message: "Unauthorized",
+		// 		redirect: "/login",
+		// 	});
+		// 	return;
+		// } else {
+			await res.send({
+				statusCode: StatusCode.OK,
+				message: "New Category form",
+				template: "NewCategoryFormView",
+				payload: { title: "New Category"},
+			});
+		// }
+	};
+
+    getEditCategoryForm = async (req: Request, res: Response) => {
+		// if (!req.session.get("userId")) {
+		// 	await res.send({
+		// 		statusCode: StatusCode.Unauthorized,
+		// 		message: "Unauthorized",
+		// 		redirect: "/login",
+		// 	});
+		// 	return;
+		// }
+		const id = req.getId();
+		let category: Category | null = null;
+		// let session = req.getSession();
+		// let isLoggedIn = session.get("isLoggedIn");
+		// let userId = session.get("userId");
+		// let user = await User.read(this.sql, userId);
+		// let isAdmin = user?.props.isAdmin;
+		try {
+			category = await Category.read(this.sql, id);
+		} catch (error) {
+			const message = `Error while getting category list: ${error}`;
+			console.error(message);
+			await res.send({
+				statusCode: StatusCode.NotFound,
+				template: "ErrorView",
+				message: "Not found",
+				payload: { error: message},
+			});
+		}						
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Edit todo form",
+			template: "EditCategoryFormView",
+			payload: {
+				category: category?.props,				
+			},
+		});
+	};
 
     createCategory = async (req: Request, res: Response) => {
         const categoryProps: CategoryProps = {
@@ -91,7 +154,7 @@ export default class CategoryController {
             await category.update(categoryProps);
             await res.send({
                 statusCode: StatusCode.OK,
-                redirect: `/categories/${category.props.id}`,
+                redirect: `/categories`,
                 message: "Category updated successfully!"
             });
         } catch (error) {
@@ -120,7 +183,8 @@ export default class CategoryController {
             await category.delete();
             await res.send({
                 statusCode: StatusCode.OK,
-                message: "Category deleted successfully!"
+                message: "Category deleted successfully!",
+                redirect: "/categories"
             });
         } catch (error) {
             console.error("Error while deleting category:", error);
@@ -141,7 +205,8 @@ export default class CategoryController {
             await res.send({
                 statusCode: StatusCode.OK,
                 message: "Categories retrieved successfully!",
-                payload: categoriesList
+                template: "CategoriesList",
+                payload: {categories: categoriesList}
             });
         } catch (error) {
             console.error("Error while fetching category list:", error);

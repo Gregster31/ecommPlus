@@ -8,6 +8,10 @@ import fs from "fs/promises";
 import SessionManager from "./auth/SessionManager";
 import Product, { ProductProps } from './models/Products';
 import Cookie from "./auth/Cookie";
+import AuthController from "./controllers/AuthController";
+import CustomerController from "./controllers/CustomerController";
+import CategoryController from "./controllers/CategoryController";
+
 
 /**
  * Options for creating a new Server instance.
@@ -32,6 +36,10 @@ export default class Server {
 	private sql: postgres.Sql;
 	private router: Router;
 	private controller: Controller;
+	private authController: AuthController;
+	private customerController: CustomerController;
+	private cateoryController: CategoryController;
+
 
 	/**
 	 * Initializes a new Server instance. The server is not started until the `start` method is called.
@@ -45,10 +53,19 @@ export default class Server {
 
 		this.router = new Router();
 		this.controller = new Controller(this.sql);
+		this.authController = new AuthController(this.sql);
+		this.customerController = new CustomerController(this.sql);
+		this.cateoryController = new CategoryController(this.sql);
+		
+		this.controller.registerRoutes(this.router);		
 
-		this.controller.registerRoutes(this.router);
 		
 		this.router.get("/", this.controller.getHomeView);
+		this.authController.registerRoutes(this.router);
+		this.customerController.registerRoutes(this.router);
+		this.cateoryController.registerRoutes(this.router);
+
+
 	}
 
 	/**
