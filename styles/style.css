@@ -1,7 +1,6 @@
 /* TEMPORARY TESTING */
 body {
     background-color: #ffffff; 
-    color: #fff;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -126,6 +125,7 @@ footer {
     font-size: 18px;
 }
 
+
 /* Featured Products */
 .show-products {
     padding: 15px;
@@ -176,7 +176,7 @@ footer {
 
 
 /* LOGIN STYLING */
-.login-box {
+form#login-form {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -186,43 +186,107 @@ footer {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 20px #037859; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.login-box h1,
-.login-box form {
-    text-align: center;
-    color: black;
-}
-
-.login-box input[type="text"],
-.login-box input[type="password"],
-.login-box button {
+form#login-form div {
     width: 100%;
     margin-top: 10px;
+}
+
+form#login-form input[type="email"],
+form#login-form input[type="password"],
+form#login-form button {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-button {
+form#login-form button {
     background-color: rgba(112, 112, 112, 0.507);
     border-radius: 10px;
     padding: 10px;
     color: white;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
 }
-button:hover {
+
+form#login-form button:hover {
     background-color: #037859;
 }
 
-.login-box a {
+form#login-form a {
     display: block;
     margin-top: 10px;
     text-decoration: none;
     color: #2675e2;
     font-size: 13px;
+    text-align: center;
+}
+
+
+/* REGISTRATION STYLING */
+form#register-form {
+    margin-top: 80px; 
+    padding: 100px; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #037859; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form#register-form div {
+    width: 100%;
+    margin-top: 10px;
+}
+
+form#register-form input[type="email"],
+form#register-form input[type="password"],
+form#register-form input[type="text"],
+form#register-form input[type="tel"],
+form#register-form input[type="date"],
+form#register-form button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form#register-form button {
+    background-color: rgba(112, 112, 112, 0.507);
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+form#register-form button:hover {
+    background-color: #037859;
+}
+
+form#register-form a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #2675e2;
+    font-size: 13px;
+    text-align: center;
 }
 
 
@@ -356,4 +420,6 @@ button:hover {
     box-shadow: 0 0 20px #037859; 
     color: black;
 }
+
+
 
