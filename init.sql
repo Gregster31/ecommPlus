@@ -9,7 +9,7 @@ CREATE TYPE order_status AS ENUM ('incomplete', 'complete');
 DROP TABLE IF EXISTS "category";
 CREATE TABLE "category" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(50) NOT NULL UNIQUE
+    "name" VARCHAR(50) UNIQUE NOT NULL
 );
 
 DROP TABLE IF EXISTS "product";

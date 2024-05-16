@@ -13,11 +13,12 @@ const main = async () => {
 
   try {
     response.data.forEach(async (product: any) => {
-      console.log(product)
+      // console.log(product)
       await sql`
       INSERT INTO category ("name")
       VALUES (${product.category})
-      `;
+      ON CONFLICT (name) DO NOTHING;
+    `;
       await sql`
       INSERT INTO product ("title", "description", "date", "price", "inventory", "url")
       VALUES (${product.title}, ${product.description}, NOW(), ${product.price}, 0, ${product.image})
