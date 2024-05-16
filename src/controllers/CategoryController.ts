@@ -107,32 +107,39 @@ export default class CategoryController {
     };
 
     getProductCategory = async (req: Request, res: Response) => {
-        const id = req.getId();
-        
+        const categoryId = req.getId();
+        console.log("-------------------------")
+        console.log(categoryId)
+        console.log("-------------------------")
+
         try {
-            const categoryProducts = await Category.read(this.sql, id);
+            const categoryProducts = await Category.read(this.sql, categoryId);
+            console.log("-------------------------")
+            console.log(categoryProducts)
+            console.log("-------------------------")
+
             if (!categoryProducts) {
                 await res.send({
                     statusCode: StatusCode.NotFound,
-                    message: "Category not found",
+                    message: "Category Products not found",
                 });
                 return;
             }            
             
             await res.send({
                 statusCode: StatusCode.Redirect,
-                redirect: `productList`,
+                redirect: `ProductList`,
 				message: "",
                 payload: {
                     products: categoryProducts,
                 }
             });
         } catch (error) {
-            console.error("Error while fetching category:", error);
+            console.error("Error while fetching category products:", error);
             await res.send({
                 statusCode: StatusCode.InternalServerError,
                 template: "ErrorView",
-                message: "Error while fetching category"
+                message: "Error while fetching category products"
             });
         }
     };

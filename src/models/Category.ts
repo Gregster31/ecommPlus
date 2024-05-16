@@ -1,5 +1,6 @@
 import postgres from 'postgres';
 import { camelToSnake, convertToCase, snakeToCamel } from '../utils';
+import { ProductProps } from './Products';
 
 export interface CategoryProps {
     id?: number;
@@ -29,8 +30,8 @@ export default class Category {
     static async read(sql: postgres.Sql<any>, id: number) {
         const connection = await sql.reserve();
 
-        const [row] = await connection<CategoryProps[]>`
-            SELECT * FROM product WHERE category_id = ${id}
+        const [row] = await connection<ProductProps[]>`
+            SELECT * FROM product WHERE category_id=${id};
         `;
 
         await connection.release();
