@@ -111,21 +111,32 @@ export default class Controller {
 	};
 
 	getLoginForm = async (req: Request, res: Response) => {
+		const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});
+
 		await res.send({
 			statusCode: StatusCode.OK,
 			message: "Login form retrieved",
 			template: "LoginForm",
-			payload: { error: req.getSearchParams().get("error"), title: "Login"},
+			payload: { error: req.getSearchParams().get("error"), title: "Login", categories: categoriesList},
 		});
 	};
 
 	getRegistrationForm = async (req: Request, res: Response) => {
+		
+		const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});
+
 		await res.send({
 			statusCode: StatusCode.OK,
 			message: "Registration form retrieved",
 			template: "RegistrationForm",
 			// Print out the error from URL
-			payload: {error: req.getSearchParams().get("error"), title: "Registration"}
+			payload: {error: req.getSearchParams().get("error"), title: "Registration", categories: categoriesList}
 		});
 	};
 

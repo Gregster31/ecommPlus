@@ -12,6 +12,7 @@ const main = async () => {
   try {
     for (const product of response.data) {
       // Insert category if not exists
+      console.log(product)
       await sql`
         INSERT INTO category ("name")
         VALUES (${product.category})

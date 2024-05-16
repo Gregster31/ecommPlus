@@ -108,15 +108,13 @@ export default class CategoryController {
 
     getProductCategory = async (req: Request, res: Response) => {
         const categoryId = req.getId();
-        console.log("-------------------------")
-        console.log(categoryId)
-        console.log("-------------------------")
 
+        const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});
         try {
             const categoryProducts = await Category.read(this.sql, categoryId);
-            console.log("-------------------------")
-            console.log(categoryProducts)
-            console.log("-------------------------")
 
             if (!categoryProducts) {
                 await res.send({
@@ -128,10 +126,11 @@ export default class CategoryController {
             
             await res.send({
                 statusCode: StatusCode.Redirect,
-                redirect: `ProductList`,
+                template: "ProductList",
 				message: "",
                 payload: {
                     products: categoryProducts,
+                    categories: categoriesList,
                 }
             });
         } catch (error) {

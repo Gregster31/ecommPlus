@@ -6,6 +6,7 @@ import Customer, { CustomerProps } from "../models/Custotmer";
 import { Session } from "inspector";
 import Cookie from "../auth/Cookie";
 import { error } from "console";
+import Category from "../models/Category";
 
 export default class AuthController {
 	private sql: postgres.Sql<any>;
@@ -27,6 +28,10 @@ export default class AuthController {
 	getRegistrationForm = async (req: Request, res: Response) => {
 		let session = req.getSession();
 		res.setCookie(new Cookie("session_id", session.id));
+		const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});
 		const errorMessage = req.getSearchParams().get("error") || "";
 		const successMessage = req.getSearchParams().get("success") || "";
 		if (errorMessage !== "") {
@@ -34,7 +39,10 @@ export default class AuthController {
 				statusCode: StatusCode.OK,
 				template: "Register",
 				message: errorMessage,
-				payload: { message: errorMessage },
+				payload: { 
+					message: errorMessage,
+					categories: categoriesList,
+				 },
 			});
 			return;
 		} else {
