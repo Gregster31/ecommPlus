@@ -30,15 +30,12 @@ export default class Category {
     static async read(sql: postgres.Sql<any>, id: number) {
         const connection = await sql.reserve();
 
-        const rows = await connection<ProductProps[]>`
-            SELECT * FROM product WHERE category_id = ${id};
-        `;
+        const [row] = await connection<CategoryProps[]>`
+            SELECT * FROM product WHERE category_id = ${id}`
 
         await connection.release();
 
-        return rows.map(
-            (row) => new Category(sql, convertToCase(snakeToCamel, row) as CategoryProps),
-        );
+        return new Category(sql, convertToCase(snakeToCamel, row) as CategoryProps);
     }
 
     static async readAll(sql: postgres.Sql<any>) {

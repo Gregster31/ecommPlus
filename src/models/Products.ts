@@ -93,4 +93,16 @@ export default class Product {
 
         return result.count === 1;
     }
+
+    static async readAllByCategory(sql: postgres.Sql<any>, id: number) {
+        let connection = await sql.reserve();
+        
+        const rows = await connection<ProductProps[]>`
+            SELECT * FROM product where category_id = ${id}
+        `;
+
+        await connection.release();
+
+        return rows.map(row => new Product(sql, convertToCase(snakeToCamel, row) as ProductProps));
+    }
 }

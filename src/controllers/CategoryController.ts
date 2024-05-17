@@ -108,15 +108,14 @@ export default class CategoryController {
 
     getProductCategory = async (req: Request, res: Response) => {
         const categoryId = req.getId();
+        console.log("-------------------------")
+        console.log(categoryId)
+        console.log("-------------------------")
 
-        const categories = await Category.readAll(this.sql);
-		let categoriesList = categories.map((category) => {
-			return {...category.props};
-		});
         try {
-            const categoryProducts = await Category.read(this.sql, categoryId);
+            const products = await Product.readAllByCategory(this.sql, categoryId);            
 
-            if (!categoryProducts) {
+            if (!products) {
                 await res.send({
                     statusCode: StatusCode.NotFound,
                     message: "Category Products not found",
@@ -126,11 +125,10 @@ export default class CategoryController {
             
             await res.send({
                 statusCode: StatusCode.Redirect,
-                template: "ProductList",
+                template: `ProductList`,
 				message: "",
                 payload: {
-                    products: categoryProducts,
-                    categories: categoriesList,
+                    products: products,
                 }
             });
         } catch (error) {
