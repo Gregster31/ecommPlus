@@ -1,0 +1,46 @@
+{{> Header }}
+
+<h1>Edit Product</h1>
+
+<form action="/products/{{product.id}}" method="POST" id="edit-product-form">
+    <input type="hidden" name="method" value="PUT">
+    <fieldset>
+        <label>
+            Title
+            <input type="text" name="title" id="title" value="{{product.title}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Description
+            <textarea name="description" id="description" required>{{product.description}}</textarea>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            URL
+            <input type="url" name="url" id="url" value="{{product.url}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Price
+            <input type="number" name="price" id="price" step="0.01" value="{{product.price}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Inventory
+            <input type="number" name="inventory" id="inventory" value="{{product.inventory}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Category ID
+            <input type="number" name="category_id" id="category_id" value="{{product.category_id}}" required>
+        </label>
+    </fieldset>
+    <input type="submit" value="Update Product" id="edit-product-form-submit-button">
+</form>
+
+{{> Footer }}

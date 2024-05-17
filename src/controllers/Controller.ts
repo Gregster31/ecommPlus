@@ -28,23 +28,23 @@ export default class Controller {
 	 */
 	registerRoutes(router: Router) {
 		router.get("/", this.getHomeView)
-		router.get("/productList", this.getProductList);
+		// router.get("/productList", this.getProductList);
 		router.get("/login", this.getLoginForm);
 		router.get("/register", this.getRegistrationForm);
 		router.get("/shoppingCart", this.getShoppingCart);
 		router.get("/historyPurchase", this.getHistoryPurchase);
-		router.get("/product", this.productView);
+		// router.get("/product", this.productView);
 
 		// Any routes that include a `:id` parameter should be registered last.
-		router.get("/products/:id", this.getSingleProduct);
+		// router.get("/products/:id", this.getSingleProduct);
 
 	}
 
 	getHomeView = async (req: Request, res: Response) => {
-		let products: Product[] = [];
-		products = await Product.readAll(this.sql);
+		// let products: Product[] = [];
+		// products = await Product.readAll(this.sql);
 		// Only take the first 4 products (Featured products in HomeView)
-		let firstFourProducts = await products.slice(0,4);
+		// let firstFourProducts = await products.slice(0,4);
 
 		const categories = await Category.readAll(this.sql);
 		let categoriesList = categories.map((category) => {
@@ -57,7 +57,7 @@ export default class Controller {
 			template: `HomeView`,
 			payload: {
 				title: "Home",
-				products: firstFourProducts,
+				// products: firstFourProducts,
 				categories: categoriesList,
 			}
     	});

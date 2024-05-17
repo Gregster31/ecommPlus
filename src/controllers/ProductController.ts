@@ -12,11 +12,11 @@ export default class ProductController {
   }
 
   registerRoutes(router: Router) {
-    router.get("/products/new", this.getNewProductForm);
     router.post("/products", this.createProduct);
-    router.get("/products", this.getProductList);    
-    router.get("/products/:id", this.getProduct);    
-    router.get("/products/:id/edit", this.getEditProductForm);		
+    router.get("/products", this.getProductList);
+    router.get("/products/new", this.getNewProductForm);
+    router.get("/products/:id", this.getProduct);
+    router.get("/products/:id/edit", this.getEditProductForm);
     router.put("/products/:id", this.updateProduct);
     router.delete("/products/:id", this.deleteProduct);
     // router.post("/products/:id/categories/:categoryId", this.addProductCategory);
@@ -89,17 +89,16 @@ export default class ProductController {
   };
 
   createProduct = async (req: Request, res: Response) => {
-    const { title, description, url, price, inventory, category_id } = req.body;
-
+    const productProps: ProductProps = {
+      title: req.body.title,
+      description: req.body.description,
+      url: req.body.url,
+      price: req.body.price,
+      inventory: req.body.inventory,
+      category_id: req.body.category_id,
+    };
     try {
-      const product = await Product.create(this.sql, {
-        title,
-        description,
-        url,
-        price,
-        inventory,
-        category_id,
-      });
+      const product = await Product.create(this.sql, productProps);
 
       await res.send({
         statusCode: StatusCode.Created,
@@ -135,7 +134,7 @@ export default class ProductController {
       await res.send({
         statusCode: StatusCode.OK,
         message: "Product retrieved successfully",
-		template: "ProductView",
+        template: "ProductView",
         payload: { product: product.props },
       });
     } catch (error) {
@@ -154,8 +153,8 @@ export default class ProductController {
       await res.send({
         statusCode: StatusCode.OK,
         message: "Products retrieved successfully",
-		template: "ProductList",
-        payload: { products: products.map(product => product.props) },
+        template: "ProductList",
+        payload: { products: products },
       });
     } catch (error) {
       console.error("Error while retrieving products:", error);
@@ -169,7 +168,31 @@ export default class ProductController {
 
   updateProduct = async (req: Request, res: Response) => {
     const id = req.getId();
-    const productProps: Partial<ProductProps> = req.body;
+    const productProps: Partial<ProductProps> = {};
+
+    if (req.body.title) {
+      productProps.title = req.body.title;
+    }
+
+    if (req.body.description) {
+      productProps.description = req.body.description;
+    }
+
+    if (req.body.url) {
+      productProps.url = req.body.url;
+    }
+
+    if (req.body.price) {
+      productProps.price = req.body.price;
+    }
+
+    if (req.body.inventory) {
+      productProps.inventory = req.body.inventory;
+    }
+
+    if (req.body.category_id) {
+      productProps.category_id = req.body.category_id;
+    }
 
     try {
       const product = await Product.read(this.sql, id);
@@ -220,6 +243,7 @@ export default class ProductController {
       if (success) {
         await res.send({
           statusCode: StatusCode.NoContent,
+          redirect: "/products",
           message: "Product deleted successfully",
         });
       } else {
@@ -237,5 +261,5 @@ export default class ProductController {
         message: "Error while deleting product",
       });
     }
-  };  
+  };
 }

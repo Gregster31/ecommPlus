@@ -17,8 +17,7 @@ CREATE TABLE "product" (
     "id" SERIAL PRIMARY KEY,
     "title" VARCHAR(150) NOT NULL,
     "description" VARCHAR(650) NOT NULL, --Might need to be changed to more, some desc are insanely long
-    "url" VARCHAR(150) NOT NULL,
-    "date" TIMESTAMP NOT NULL,
+    "url" VARCHAR(150) NOT NULL,    
     "price" DECIMAL NOT NULL,
     "inventory" INTEGER NOT NULL,
     "category_id" INTEGER REFERENCES "category"(id) ON DELETE CASCADE
