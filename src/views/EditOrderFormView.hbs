@@ -1,0 +1,44 @@
+{{> Header }}
+
+<h1>Edit Order</h1>
+
+<form action="/orders/{{order.id}}" method="POST" id="edit-order-form">
+    <input type="hidden" name="method" value="PUT">
+    
+    {{!-- <div>
+        <label for="order_date">Order Date:</label>
+        <input type="datetime-local" id="order_date" name="order_date" value="{{order.orderDate}}" required>
+    </div> --}}
+    
+    <div>
+        <label for="total_price">Total Price:</label>
+        <input type="number" step="0.01" id="total_price" name="total_price" value="{{order.totalPrice}}" required>
+    </div>
+    
+    <div>
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="incomplete" {{#if (eq order.status 'incomplete')}}selected{{/if}}>Incomplete</option>
+            <option value="complete" {{#if (eq order.status 'complete')}}selected{{/if}}>Complete</option>            
+        </select>
+    </div>
+    
+    <div>
+        <label for="completed_at">Completed At:</label>
+        <input type="datetime-local" id="completed_at" name="completed_at" value="{{order.completedAt}}">
+    </div>
+    
+    <div>
+        <label for="customer_id">Customer ID:</label>
+        <input type="number" id="customer_id" name="customer_id" value="{{order.customerId}}" required>
+    </div>
+    
+    <div>
+        <label for="address_id">Address ID:</label>
+        <input type="number" id="address_id" name="address_id" value="{{order.addressId}}" required>
+    </div>
+    
+    <input type="submit" value="Update Order" id="edit-order-form-submit-button">
+</form>
+
+{{> Footer }}

@@ -26,7 +26,7 @@ export default class Order {
         const connection = await sql.reserve();
 
         const [row] = await connection<OrderProps[]>`
-            INSERT INTO orders
+            INSERT INTO "order"
             ${sql(convertToCase(camelToSnake, props))}
             RETURNING *
         `;
@@ -40,7 +40,7 @@ export default class Order {
         const connection = await sql.reserve();
 
         const [row] = await connection<OrderProps[]>`
-            SELECT * FROM orders WHERE id = ${id}
+            SELECT * FROM "order" WHERE id = ${id}
         `;
 
         await connection.release();
@@ -56,7 +56,7 @@ export default class Order {
         const connection = await sql.reserve();
 
         const rows = await connection<OrderProps[]>`
-            SELECT * FROM orders
+            SELECT * FROM "order"
         `;
 
         await connection.release();
@@ -68,7 +68,7 @@ export default class Order {
         const connection = await this.sql.reserve();
 
         const [row] = await connection`
-            UPDATE orders
+            UPDATE "order"
             SET
                 ${this.sql(convertToCase(camelToSnake, updateProps))}
             WHERE
@@ -85,7 +85,7 @@ export default class Order {
         const connection = await this.sql.reserve();
 
         const result = await connection`
-            DELETE FROM orders WHERE id = ${this.props.id}
+            DELETE FROM "order" WHERE id = ${this.props.id}
         `;
 
         await connection.release();

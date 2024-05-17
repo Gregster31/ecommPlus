@@ -13,31 +13,95 @@ export default class OrderController {
     }
 
     registerRoutes(router: Router) {
-        router.post('/orders', this.addOrder);
-        router.get('/orders/:id', this.getOrder);
-        router.get('/orders', this.getOrderList);
-        router.put('/orders/:id', this.updateOrder);
-        router.put('/orders/:id/complete', this.completeOrder);
-        router.delete('/orders/:id', this.deleteOrder);
+        router.get("/orders/new", this.getNewOrderForm); //done
+        router.post('/orders', this.addOrder); //done
+        router.get('/orders', this.getOrderList); //done
+        router.get('/orders/:id', this.getOrder); //done
+        router.get("/orders/:id/edit", this.getEditOrderForm);  //done      
+        router.put('/orders/:id', this.updateOrder); //done
+        router.put('/orders/:id/complete', this.completeOrder); //done
+        router.delete('/orders/:id', this.deleteOrder); //done
     }
+
+    getNewOrderForm = async (req: Request, res: Response) => {
+		// let session = req.getSession();
+		// let userId = session.get("userId");
+		// let user = await User.read(this.sql, userId);
+		// let isAdmin = user?.props.isAdmin;
+		// let isLoggedIn = session.get("isLoggedIn");
+		// if (!req.session.get("userId")) {
+		// 	await res.send({
+		// 		statusCode: StatusCode.Unauthorized,
+		// 		message: "Unauthorized",
+		// 		redirect: "/login",
+		// 	});
+		// 	return;
+		// } else {
+			await res.send({
+				statusCode: StatusCode.OK,
+				message: "New Order form",
+				template: "NewOrderFormView",
+				payload: { title: "New Order"},
+			});
+		// }
+	};
+
+    getEditOrderForm = async (req: Request, res: Response) => {
+		// if (!req.session.get("userId")) {
+		// 	await res.send({
+		// 		statusCode: StatusCode.Unauthorized,
+		// 		message: "Unauthorized",
+		// 		redirect: "/login",
+		// 	});
+		// 	return;
+		// }
+		const id = req.getId();
+		let order: Order | null = null;
+		// let session = req.getSession();
+		// let isLoggedIn = session.get("isLoggedIn");
+		// let userId = session.get("userId");
+		// let user = await User.read(this.sql, userId);
+		// let isAdmin = user?.props.isAdmin;
+		try {
+			order = await Order.read(this.sql, id);
+		} catch (error) {
+			const message = `Error while getting order list: ${error}`;
+			console.error(message);
+			await res.send({
+				statusCode: StatusCode.NotFound,
+				template: "ErrorView",
+				message: "Not found",
+				payload: { error: message},
+			});
+		}						
+		await res.send({
+			statusCode: StatusCode.OK,
+			message: "Edit Order form",
+			template: "EditOrderFormView",
+			payload: {
+				order: order?.props,				
+			},
+		});
+	};
+
 
     addOrder = async (req: Request, res: Response) => {
         try {
-            const session = req.getSession();
-            const userId = session.get('userId');
-            if (!userId) {
-                await res.send({
-                    statusCode: StatusCode.Unauthorized,
-                    message: 'Unauthorized',
-                    redirect: '/login',
-                });
-                return;
-            }
+            // const session = req.getSession();
+            // const userId = session.get('userId');
+            // if (!userId) {
+            //     await res.send({
+            //         statusCode: StatusCode.Unauthorized,
+            //         message: 'Unauthorized',
+            //         redirect: '/login',
+            //     });
+            //     return;
+            // }
 
-            const orderProps: OrderProps = {  orderDate: req.body.orderDate,
-				totalPrice: req.body.totalPrice,
-				customerId: req.body.customerId,
-				addressId: req.body.addressId,
+            const orderProps: OrderProps = {  orderDate: new Date(),
+				totalPrice: req.body.total_price,
+				customerId: req.body.customer_id,
+				addressId: req.body.address_id,
 				status: "incomplete",				
             };
 
@@ -75,7 +139,7 @@ export default class OrderController {
             await res.send({
                 statusCode: StatusCode.OK,
                 message: 'Order retrieved successfully!',
-                template: 'GetOrderView',
+                template: 'OrderView',
                 payload: { order: order.props },
             });
         } catch (error) {
@@ -92,12 +156,14 @@ export default class OrderController {
     getOrderList = async (req: Request, res: Response) => {
         try {
             const orders = await Order.readAll(this.sql);
-
+            let orderList = orders.map((order) => {
+				return {...order.props};
+			});	
             await res.send({
                 statusCode: StatusCode.OK,
                 message: 'Order list retrieved successfully!',
-                template: 'GetOrderListView',
-                payload: { orders: orders.map(order => order.props) },
+                template: 'OrderListView',
+                payload: { orders: orderList},
             });
         } catch (error) {
             console.error('Error while retrieving order list:', error);
@@ -114,17 +180,23 @@ export default class OrderController {
         try {
             const orderId = req.getId();
             const orderProps: Partial<OrderProps> = { };
-			if (req.body.orderDate) {
-				orderProps.orderDate = req.body.orderDate;
+			if (req.body.order_date) {
+				orderProps.orderDate = req.body.order_date;
 			  } 
-			if (req.body.totalPrice) {
-				orderProps.totalPrice = req.body.totalPrice;
+			if (req.body.total_price) {
+				orderProps.totalPrice = req.body.total_price;
 			}
-			if (req.body.customerId) {
-				orderProps.customerId = req.body.customerId;
+			if (req.body.customer_id) {
+				orderProps.customerId = req.body.customer_id;
 			}
-			if (req.body.addressId) {
-				orderProps.addressId = req.body.addressId;
+			if (req.body.address_id) {
+				orderProps.addressId = req.body.address_id;
+			}
+            if (req.body.status) {
+				orderProps.status = req.body.status;
+			}
+            if (req.body.completed_at) {
+				orderProps.completedAt = req.body.completed_at;
 			}
 
             const order = await Order.read(this.sql, orderId);
@@ -206,6 +278,7 @@ export default class OrderController {
             await res.send({
                 statusCode: StatusCode.NoContent,
                 message: 'Order deleted successfully!',
+                redirect: "/orders"
             });
         } catch (error) {
             console.error('Error while deleting order:', error);
