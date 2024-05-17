@@ -14,9 +14,12 @@ export default class CartController {
   registerRoutes(router: Router) {
     router.get("/cart", this.getCart);
     router.post("/cart/items", this.addItemToCart);
+
+
+
+
     router.put("/cart/items/:productId", this.updateCartItem);
     router.delete("/cart/items/:productId", this.removeItemFromCart);
-    router.delete("/cart", this.clearCart);
   }
 
   getCart = async (req: Request, res: Response) => {
@@ -24,6 +27,10 @@ export default class CartController {
 
     try {
       let cart = await Cart.read(this.sql, customerId);
+      console.log("----------------")
+      console.log(cart)
+      console.log("----------------")
+
 
       if (!cart) {
         cart = await Cart.create(this.sql, { customer_id: customerId });
@@ -33,7 +40,7 @@ export default class CartController {
         statusCode: StatusCode.OK,
         message: "Cart retrieved successfully",
         template: "CartView",
-        payload: { cart: cart.props, items: cart.items },
+        payload: { items: cart.items },
       });
     } catch (error) {
       console.error("Error while retrieving cart:", error);
@@ -49,8 +56,14 @@ export default class CartController {
     const customerId = req.getSession().get("customerId");
     const { product_id, quantity, unit_price } = req.body;
 
+    
+    console.log("CustomerIDDDDD: " + customerId)
+
     try {
       let cart = await Cart.read(this.sql, customerId);
+      console.log("----------------")
+      console.log(cart)
+      console.log("----------------")
 
       if (!cart) {
         cart = await Cart.create(this.sql, { customer_id: customerId });
@@ -58,10 +71,14 @@ export default class CartController {
 
       await cart.addItem({ shopping_cart_id: cart.props.id, product_id, quantity, unit_price });
 
+
+    const updatedCart = await Cart.read(this.sql, customerId);
+
       await res.send({
         statusCode: StatusCode.Created,
         message: "Item added to cart successfully",
-        payload: { cart: cart.props, items: cart.items },
+        payload: { items: updatedCart?.items },
+        template: "CartView"
       });
     } catch (error) {
       console.error("Error while adding item to cart:", error);
@@ -72,6 +89,19 @@ export default class CartController {
       });
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   updateCartItem = async (req: Request, res: Response) => {
     const customerId = req.getSession().get("customerId");
@@ -151,45 +181,6 @@ export default class CartController {
         statusCode: StatusCode.InternalServerError,
         template: "ErrorView",
         message: "Error while removing cart item",
-      });
-    }
-  };
-
-  clearCart = async (req: Request, res: Response) => {
-    const customerId = req.getSession().get("customerId");
-
-    try {
-      const cart = await Cart.read(this.sql, customerId);
-
-      if (!cart) {
-        await res.send({
-          statusCode: StatusCode.NotFound,
-          template: "ErrorView",
-          message: "Cart not found",
-        });
-        return;
-      }
-
-      const success = await cart.clearCart();
-
-      if (success) {
-        await res.send({
-          statusCode: StatusCode.NoContent,
-          message: "Cart cleared successfully",
-        });
-      } else {
-        await res.send({
-          statusCode: StatusCode.InternalServerError,
-          template: "ErrorView",
-          message: "Error while clearing cart",
-        });
-      }
-    } catch (error) {
-      console.error("Error while clearing cart:", error);
-      await res.send({
-        statusCode: StatusCode.InternalServerError,
-        template: "ErrorView",
-        message: "Error while clearing cart",
       });
     }
   };

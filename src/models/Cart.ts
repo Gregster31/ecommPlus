@@ -47,6 +47,7 @@ export default class Cart {
         `;
 
         if (!cartRow) {
+            console.log("erorr23231321321")
             await connection.release();
             return null;
         }

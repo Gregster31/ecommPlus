@@ -83,8 +83,6 @@ CREATE TABLE "shopping_cart" (
     "id" SERIAL PRIMARY KEY,
     "customer_id" INTEGER REFERENCES "customer"(id) ON DELETE CASCADE,
     "order_id" INTEGER REFERENCES "order"(id) ON DELETE SET NULL,
-    "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
-    "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 DROP TABLE IF EXISTS "shopping_cart_item";
