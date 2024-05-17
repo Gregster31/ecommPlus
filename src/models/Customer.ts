@@ -46,10 +46,19 @@ export default class Customer {
                     ${sql(convertToCase(camelToSnake, props))}
                 RETURNING *
             `;
-
-            return new Customer(sql, convertToCase(snakeToCamel, row) as CustomerProps);
-        } finally {
             await connection.release();
+            return new Customer(sql, convertToCase(snakeToCamel, row) as CustomerProps);
+        } 
+        catch (error: any) 
+		{
+            if (error.code === '23505') 
+			{
+                throw new DuplicateEmailError();
+            } 
+			else 
+			{
+                throw error;
+            }
         }
     }
 
@@ -79,7 +88,7 @@ export default class Customer {
 
             return new Customer(sql, convertToCase(snakeToCamel, row) as CustomerProps);
         } finally {
-            await connection.end();
+            await connection.release();
         }
     }
 
@@ -113,20 +122,18 @@ export default class Customer {
 
             this.props = { ...this.props, ...convertToCase(snakeToCamel, row) };
         } finally {
-            await connection.end();
+            await connection.release();
         }
     }
 
     async delete() {
         const connection = await this.sql.reserve();
-
-        try {
+        
             await connection`
                 DELETE FROM customer
                 WHERE id = ${this.props.id}
             `;
-        } finally {
-            await connection.end();
-        }
+            await connection.release();
+        
     }
 }

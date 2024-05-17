@@ -2,7 +2,7 @@ import postgres from "postgres";
 import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
-import Customer, { CustomerProps } from "../models/Custotmer";
+import Customer, { CustomerProps } from "../models/Customer";
 
 export default class CustomerController {
   private sql: postgres.Sql<any>;
@@ -13,14 +13,54 @@ export default class CustomerController {
 
   registerRoutes(router: Router) {
     router.post("/customers", this.addCustomer);
-    router.get("/customers/:id", this.getCustomer);
     router.get("/customers", this.getAllCustomers);
+    router.get("/customers/:id", this.getCustomer);
+    router.get("/customers/:id/edit", this.getEditCustomerForm);    
     router.put("/customers/:id", this.updateCustomer);
     router.delete("/customers/:id", this.deleteCustomer);
   }
 
+  getEditCustomerForm = async (req: Request, res: Response) => {
+		// if (!req.session.get("userId")) {
+		// 	await res.send({
+		// 		statusCode: StatusCode.Unauthorized,
+		// 		message: "Unauthorized",
+		// 		redirect: "/login",
+		// 	});
+		// 	return;
+		// }
+		const id = req.getId();
+		let customer: Customer | null = null;
+		// let session = req.getSession();
+		// let isLoggedIn = session.get("isLoggedIn");
+		// let userId = session.get("userId");
+		// let user = await User.read(this.sql, userId);
+		// let isAdmin = user?.props.isAdmin;
+		try {
+			customer = await Customer.read(this.sql, id);
+      await res.send({
+        statusCode: StatusCode.OK,
+        message: "Edit todo form",
+        template: "CustomerEditView",
+        payload: {
+          customer: customer?.props,				
+        },
+      });
+		} catch (error) {
+			const message = `Error while getting category list: ${error}`;
+			console.error(message);
+			await res.send({
+				statusCode: StatusCode.NotFound,
+				template: "ErrorView",
+				message: "Not found",
+				payload: { error: message},
+			});
+		}								
+	};
+
+
   addCustomer = async (req: Request, res: Response) => {
-    const {
+    let {
       email,
       firstName,
       lastName,
@@ -31,6 +71,10 @@ export default class CustomerController {
       isAdmin,
     } = req.body;    
     try {
+      if (!isAdmin)
+        {
+          isAdmin = false;
+        }
       const customer = await Customer.create(this.sql, {
         email,
         firstName,
@@ -73,6 +117,7 @@ export default class CustomerController {
       await res.send({
         statusCode: StatusCode.OK,
         message: "Customer retrieved successfully",
+        template: "CustomerView",
         payload: { customer: customer.props },
       });
     } catch (error) {
@@ -89,6 +134,15 @@ export default class CustomerController {
     let customer: Customer[] = [];
     try {
       customer = await Customer.readAll(this.sql);
+      let customerList = customer.map((customer) => {
+				return {...customer.props};
+			});	
+      await res.send({
+        statusCode: StatusCode.OK,
+        template: "CustomerListView",
+        message: "Customers list",
+        payload: {customers: customerList}
+      });
     } catch (error) {
       console.error("Error while retrieving customers:", error);
       await res.send({
@@ -145,8 +199,8 @@ export default class CustomerController {
         await customer.update(customerProps);
         await res.send({
           statusCode: StatusCode.OK,
-          message: "Todo updated successfully!",
-          template: "ShowView",
+          message: "Customer updated successfully!",
+          template: "CustomerView",
           payload: { customer: customer.props},
         });
       } else {
@@ -181,22 +235,14 @@ export default class CustomerController {
 	}
 	try {
 		const customer = await Customer.read(this.sql, id);
-		if (await customer?.delete()) {
-			const redirectUrl = `/customers`;
+		await customer?.delete()
+			const redirectUrl = `/`;
 			await res.send({
 				statusCode: StatusCode.OK,
 				message: "Customer deleted successfully!",
 				redirect: redirectUrl,
 				payload: { customer: customer?.props},
-			});
-		} else {
-			await res.send({
-				statusCode: StatusCode.InternalServerError,
-				template: "ErrorView",
-				message: "Error while deleting todo.",
-				payload: { error: "Error while deleting customer."},
-			});
-		}
+			});		
 	}
 	catch (error) {
 		console.error("Error while deleting customer:", error);

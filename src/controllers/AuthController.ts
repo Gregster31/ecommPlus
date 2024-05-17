@@ -2,7 +2,7 @@ import postgres from "postgres";
 import Router from "../router/Router";
 import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
-import Customer, { CustomerProps } from "../models/Custotmer";
+import Customer, { CustomerProps } from "../models/Customer";
 import { Session } from "inspector";
 import Cookie from "../auth/Cookie";
 import { error } from "console";
@@ -126,7 +126,7 @@ export default class AuthController {
 				}				
 				await res.send({
 					statusCode: StatusCode.OK,
-					redirect: "/product",
+					redirect: "/products",
 					message: "Logged in successfully!",
 					payload: { user: user.props, isLoggedIn },
 				});

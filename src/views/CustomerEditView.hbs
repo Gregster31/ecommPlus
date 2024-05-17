@@ -1,0 +1,58 @@
+{{> Header }}
+
+<h1>Edit Customer</h1>
+
+<form action="/customers/{{customer.id}}" method="POST" id="edit-customer-form">
+    <input type="hidden" name="method" value="PUT">
+    <fieldset>
+        <label>
+            First Name
+            <input type="text" name="firstName" id="firstName" value="{{customer.firstName}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Last Name
+            <input type="text" name="lastName" id="lastName" value="{{customer.lastName}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Email
+            <input type="email" name="email" id="email" value="{{customer.email}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Username
+            <input type="text" name="userName" id="userName" value="{{customer.userName}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Phone Number
+            <input type="text" name="phoneNumber" id="phoneNumber" value="{{customer.phoneNumber}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Date of Birth
+            <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{customer.dateOfBirth}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Password
+            <input type="password" name="password" id="password" value="{{customer.password}}" required>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Admin
+            <input type="checkbox" name="isAdmin" id="isAdmin" {{#if customer.isAdmin}}checked{{/if}}>
+        </label>
+    </fieldset>
+    <input type="submit" value="Update Customer" id="edit-customer-form-submit-button">
+</form>
+
+{{> Footer }}
