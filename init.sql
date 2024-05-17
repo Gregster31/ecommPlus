@@ -77,4 +77,21 @@ CREATE TABLE "payment" (
     "order_id" INTEGER REFERENCES "order"(id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS "shopping_cart";
+CREATE TABLE "shopping_cart" (
+    "id" SERIAL PRIMARY KEY,
+    "customer_id" INTEGER REFERENCES "customer"(id) ON DELETE CASCADE,
+    "order_id" INTEGER REFERENCES "order"(id) ON DELETE SET NULL,
+);
+
+DROP TABLE IF EXISTS "shopping_cart_item";
+CREATE TABLE "shopping_cart_item" (
+    "id" SERIAL PRIMARY KEY,
+    "shopping_cart_id" INTEGER REFERENCES "shopping_cart"(id) ON DELETE CASCADE,
+    "product_id" INTEGER REFERENCES "product"(id) ON DELETE CASCADE,
+    "quantity" INTEGER NOT NULL,
+    "unit_price" DECIMAL NOT NULL,
+    "added_at" TIMESTAMP NOT NULL DEFAULT NOW(),
+    UNIQUE ("shopping_cart_id", "product_id")
+);
 
