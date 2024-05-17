@@ -12,6 +12,7 @@ import AuthController from "./controllers/AuthController";
 import CustomerController from "./controllers/CustomerController";
 import CategoryController from "./controllers/CategoryController";
 import ProductController from "./controllers/ProductController";
+import CartController from "./controllers/CartController";
 
 
 /**
@@ -35,12 +36,15 @@ export default class Server {
 	private port: number;
 	private server: http.Server;
 	private sql: postgres.Sql;
+
 	private router: Router;
 	private controller: Controller;
 	private authController: AuthController;
 	private customerController: CustomerController;
 	private cateoryController: CategoryController;
 	private productController: ProductController;
+	private cartController: CartController;
+
 
 
 	/**
@@ -59,7 +63,8 @@ export default class Server {
 		this.customerController = new CustomerController(this.sql);
 		this.cateoryController = new CategoryController(this.sql);
 		this.productController = new ProductController(this.sql);
-		
+		this.cartController = new CartController(this.sql);
+
 		this.controller.registerRoutes(this.router);		
 
 		
@@ -68,6 +73,7 @@ export default class Server {
 		this.customerController.registerRoutes(this.router);
 		this.cateoryController.registerRoutes(this.router);
 		this.productController.registerRoutes(this.router);
+		this.cartController.registerRoutes(this.router);
 
 
 	}

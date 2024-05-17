@@ -31,7 +31,7 @@ export default class Controller {
 		// router.get("/productList", this.getProductList);
 		router.get("/login", this.getLoginForm);
 		router.get("/register", this.getRegistrationForm);
-		router.get("/shoppingCart", this.getShoppingCart);
+		// router.get("/shoppingCart", this.getShoppingCart);
 		router.get("/historyPurchase", this.getHistoryPurchase);
 		// router.get("/product", this.productView);
 
@@ -159,12 +159,15 @@ export default class Controller {
 		});
 	};
 
+
+
+
 	getShoppingCart = async (req: Request, res: Response) => {
 		await res.send({
 			statusCode: StatusCode.OK,
-			message: "Shopping Cart retrieved",
-			template: "ShoppingCart",
-			payload: { error: req.getSearchParams().get("error"), title: "ShoppingCart"},
-		});
+			message: "productList received",
+			template: `CartView`,
+			payload: {title: "All Products"}
+    	});
 	};
 }
