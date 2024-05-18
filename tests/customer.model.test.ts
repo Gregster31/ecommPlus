@@ -3,7 +3,7 @@ import Customer, { CustomerProps, DuplicateEmailError, InvalidCredentialsError }
 import { test, describe, expect, afterEach, afterAll } from "vitest";
 import { createUTCDate } from "../src/utils";
 
-describe("Category CRUD operations", () => {
+describe("Customer CRUD operations", () => {
     const sql = postgres({
         database: "ECommDB",
     });

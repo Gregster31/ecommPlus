@@ -35,6 +35,10 @@ export default class Category {
 
         await connection.release();
 
+        if (!row) {
+            return null;
+        }
+
         return new Category(sql, convertToCase(snakeToCamel, row) as CategoryProps);
     }
 

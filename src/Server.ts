@@ -13,6 +13,7 @@ import CustomerController from "./controllers/CustomerController";
 import CategoryController from "./controllers/CategoryController";
 import ProductController from "./controllers/ProductController";
 import CartController from "./controllers/CartController";
+import OrderController from "./controllers/OrderController";
 
 
 /**
@@ -44,6 +45,7 @@ export default class Server {
 	private cateoryController: CategoryController;
 	private productController: ProductController;
 	private cartController: CartController;
+	private orderController: OrderController;
 
 
 
@@ -64,6 +66,7 @@ export default class Server {
 		this.cateoryController = new CategoryController(this.sql);
 		this.productController = new ProductController(this.sql);
 		this.cartController = new CartController(this.sql);
+		this.orderController = new OrderController(this.sql);
 
 		this.controller.registerRoutes(this.router);		
 
@@ -74,7 +77,7 @@ export default class Server {
 		this.cateoryController.registerRoutes(this.router);
 		this.productController.registerRoutes(this.router);
 		this.cartController.registerRoutes(this.router);
-
+		this.orderController.registerRoutes(this.router);
 
 	}
 

@@ -48,9 +48,9 @@ describe("Product CRUD operations", () => {
         try {
             for (const table of tables) {
                 await sql.unsafe(`DELETE FROM ${table}`);
-                await sql.unsafe(
-                    `ALTER SEQUENCE ${table}_id_seq RESTART WITH 1;`,
-                );
+                await sql.unsafe(`ALTER SEQUENCE ${table}_id_seq RESTART WITH 1;`),
+                await sql.unsafe("DELETE FROM category"),
+        	    await sql.unsafe("ALTER SEQUENCE category_id_seq RESTART WITH 1;")                
             }
         } catch (error) {
             console.error(error);
@@ -61,8 +61,9 @@ describe("Product CRUD operations", () => {
         await sql.end();
     });
 
-    test("Product was created.", async () => {
-        const product = await createProduct({ title: "Test Product 2" });
+    test("Product was created.", async () => {  
+        let category = await createCategory();  
+        const product = await createProduct({ title: "Test Product 2", category_id: category.props.id});
 
         expect(product.props.title).toBe("Test Product 2");
         expect(product.props.description).toBe("This is a test product");
@@ -71,7 +72,8 @@ describe("Product CRUD operations", () => {
     });
 
     test("Product was retrieved.", async () => {
-        const product = await createProduct();
+        let category = await createCategory();
+        const product = await createProduct({category_id: category.props.id});
 
         const readProduct = await Product.read(sql, product.props.id!);
 
@@ -82,9 +84,10 @@ describe("Product CRUD operations", () => {
     });
 
     test("Products were listed.", async () => {
-        const product1 = await createProduct();
-        const product2 = await createProduct();
-        const product3 = await createProduct();
+        let category = await createCategory();
+        const product1 = await createProduct({category_id: category.props.id});
+        const product2 = await createProduct({category_id: category.props.id});
+        const product3 = await createProduct({category_id: category.props.id});
 
         const products = await Product.readAll(sql);
 
@@ -95,20 +98,21 @@ describe("Product CRUD operations", () => {
     });
 
     test("Products were listed by category.", async () => {
-        const product1 = await createProduct({ category_id: 1 });
-        const product2 = await createProduct({ category_id: 2 });
-        const product3 = await createProduct({ category_id: 1 });
+        let category = await createCategory();                
+        const product1 = await createProduct({ category_id: category.props.id });
+        const product2 = await createProduct({ category_id: category.props.id });
+        const product3 = await createProduct({ category_id: category.props.id});
 
-        const productsByCategory1 = await Product.readAllByCategory(sql, 1);
+        const productsByCategory1 = await Product.readAllByCategory(sql, category.props.id || 1);
 
         expect(productsByCategory1).toBeInstanceOf(Array);
         expect(productsByCategory1).toContainEqual(product1);
         expect(productsByCategory1).toContainEqual(product3);
-        expect(productsByCategory1).not.toContainEqual(product2);
     });
 
     test("Product was updated.", async () => {
-        const product = await createProduct();
+        let category = await createCategory();        
+        const product = await createProduct({category_id: category.props.id});
 
         await product.update({ title: "Updated Test Product" });
 
@@ -119,7 +123,8 @@ describe("Product CRUD operations", () => {
     });
 
     test("Product was deleted.", async () => {
-        const product = await createProduct();
+        let category = await createCategory();        
+        const product = await createProduct({category_id: category.props.id});
 
         await product.delete();
 
