@@ -87,7 +87,7 @@ export default class CustomerController {
       });
       await res.send({
         statusCode: StatusCode.Created,
-        message: "Customer created successfully",
+        message: "Customer created successfully!",
         redirect: "/login",
         payload: { customer: customer.props },
       });
@@ -103,6 +103,15 @@ export default class CustomerController {
 
   getCustomer = async (req: Request, res: Response) => {
     const customerId = req.getId();
+    if (isNaN(customerId)) {
+			await res.send({
+				statusCode: StatusCode.BadRequest,
+				template: "ErrorView",
+				message: "Invalid ID",
+				payload: { error: "Invalid ID"},
+			});
+			return;
+		}
     try {
       const customer = await Customer.read(this.sql, customerId);
       if (!customer) {
@@ -116,7 +125,7 @@ export default class CustomerController {
 
       await res.send({
         statusCode: StatusCode.OK,
-        message: "Customer retrieved successfully",
+        message: "Customer retrieved successfully!",
         template: "CustomerView",
         payload: { customer: customer.props },
       });

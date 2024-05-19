@@ -130,10 +130,10 @@ export default class AuthController {
 					message: "Logged in successfully!",
 					payload: { user: user.props, isLoggedIn },
 				});
-			}
+			}			
 		} catch (error) {
 			await res.send({
-				statusCode: StatusCode.BadRequest,				
+				statusCode: StatusCode.Unauthorized,				
 				message: "Invalid credentials.",
 				redirect: "/login?error=Invalid credentials",
 			});

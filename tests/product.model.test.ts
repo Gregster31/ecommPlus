@@ -100,7 +100,6 @@ describe("Product CRUD operations", () => {
     test("Products were listed by category.", async () => {
         let category = await createCategory();                
         const product1 = await createProduct({ category_id: category.props.id });
-        const product2 = await createProduct({ category_id: category.props.id });
         const product3 = await createProduct({ category_id: category.props.id});
 
         const productsByCategory1 = await Product.readAllByCategory(sql, category.props.id || 1);
