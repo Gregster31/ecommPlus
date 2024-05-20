@@ -29,8 +29,8 @@ const main = async () => {
 
         // Insert product with category_id
         await sql`
-          INSERT INTO product ("title", "description", "date", "price", "inventory", "url", "category_id")
-          VALUES (${product.title}, ${product.description}, NOW(), ${product.price}, 0, ${product.image}, ${categoryId});
+          INSERT INTO product ("title", "description", "price", "inventory", "url", "category_id")
+          VALUES (${product.title}, ${product.description}, ${product.price}, 0, ${product.image}, ${categoryId});
         `;
         console.log(`Product "${product.title}" inserted successfully.`);
       } else {

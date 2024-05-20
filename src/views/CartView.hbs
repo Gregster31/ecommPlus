@@ -10,7 +10,6 @@
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,9 +19,8 @@
                         <img src="{{this.url}}" alt="{{this.title}}">
                         <h6>{{this.title}}</h6>
                     </td>
-                    <td>${{this.unit_price}}</td>
+                    <td>${{this.unitPrice}}</td>
                     <td>{{this.quantity}}</td>
-                    <td>$ TOTAL PRICE TO CHANGE</td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -32,10 +30,6 @@
     <div class="checkout-div">
         <div>
             <h4>Order summary</h4>
-        </div>
-        <div class="subtotal-div">
-            <div>Sub Total</div>
-            <div>${{subtotal}}</div>
         </div>
         <div class="total-div">
             <div>Total</div>

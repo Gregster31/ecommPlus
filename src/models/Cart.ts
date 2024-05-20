@@ -16,7 +16,12 @@ export interface CartItemProps {
     quantity: number;
     unit_price: number;
     added_at?: Date;
+    title?: string;
+    url?: string;
+    description?: string;
+    product_price?: number;
 }
+
 
 export default class Cart {
     constructor(
@@ -39,31 +44,34 @@ export default class Cart {
         return new Cart(sql, convertToCase(snakeToCamel, row) as CartProps);
     }
 
-    static async read(sql: postgres.Sql<any>, id: number) {
+    static async readByCustomerId(sql: postgres.Sql<any>, customer_id: number) {
         const connection = await sql.reserve();
-
+    
         const [cartRow] = await connection<CartProps[]>`
-            SELECT * FROM shopping_cart WHERE id = ${id}
+            SELECT * FROM shopping_cart WHERE customer_id = ${customer_id}
         `;
-
+    
         if (!cartRow) {
-            console.log("erorr23231321321")
             await connection.release();
             return null;
         }
-
-        const itemRows = await connection<CartItemProps[]>`
-            SELECT * FROM shopping_cart_item WHERE shopping_cart_id = ${id}
+    
+        const itemRows = await connection`
+            SELECT sci.*, p.title, p.url, p.description, p.price AS product_price
+            FROM shopping_cart_item sci
+            JOIN product p ON sci.product_id = p.id
+            WHERE sci.shopping_cart_id = ${cartRow.id}
         `;
-
+    
         await connection.release();
-
+    
         return new Cart(
             sql,
             convertToCase(snakeToCamel, cartRow) as CartProps,
             itemRows.map(row => convertToCase(snakeToCamel, row) as CartItemProps)
         );
     }
+    
 
     async addItem(itemProps: CartItemProps) {
         const connection = await this.sql.reserve();

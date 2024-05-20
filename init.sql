@@ -31,7 +31,7 @@ CREATE TABLE "customer" (
     "last_name" VARCHAR(50) NOT NULL,
     "date_of_birth" TIMESTAMP NOT NULL,
     "phone_number" CHAR(10) NOT NULL,
-    "password" Text NOT NULL,
+    "password" TEXT NOT NULL,
     "user_name" VARCHAR(20) NOT NULL,
     "is_admin" BOOLEAN DEFAULT FALSE
 );
@@ -60,8 +60,6 @@ CREATE TABLE "order" (
     "address_id" INTEGER REFERENCES address(id) ON DELETE CASCADE
 );
 
-
-
 DROP TABLE IF EXISTS "order_detail";
 CREATE TABLE "order_detail" (
     "order_id" INTEGER REFERENCES "order"(id) ON DELETE CASCADE,
@@ -81,7 +79,7 @@ DROP TABLE IF EXISTS "shopping_cart";
 CREATE TABLE "shopping_cart" (
     "id" SERIAL PRIMARY KEY,
     "customer_id" INTEGER REFERENCES "customer"(id) ON DELETE CASCADE,
-    "order_id" INTEGER REFERENCES "order"(id) ON DELETE SET NULL,
+    "order_id" INTEGER REFERENCES "order"(id) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS "shopping_cart_item";
@@ -91,7 +89,5 @@ CREATE TABLE "shopping_cart_item" (
     "product_id" INTEGER REFERENCES "product"(id) ON DELETE CASCADE,
     "quantity" INTEGER NOT NULL,
     "unit_price" DECIMAL NOT NULL,
-    "added_at" TIMESTAMP NOT NULL DEFAULT NOW(),
     UNIQUE ("shopping_cart_id", "product_id")
 );
-

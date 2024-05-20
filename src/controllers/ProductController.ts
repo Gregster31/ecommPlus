@@ -3,6 +3,7 @@ import Request from "../router/Request";
 import Response, { StatusCode } from "../router/Response";
 import Router from "../router/Router";
 import Product, { ProductProps } from "../models/Products";
+import Category from "../models/Category";
 
 export default class ProductController {
   private sql: postgres.Sql<any>;
@@ -15,6 +16,7 @@ export default class ProductController {
     router.post("/products", this.createProduct);
     router.get("/products", this.getProductList);
     router.get("/products/new", this.getNewProductForm);
+
     router.get("/products/:id", this.getProduct);
     router.get("/products/:id/edit", this.getEditProductForm);
     router.put("/products/:id", this.updateProduct);
@@ -117,6 +119,11 @@ export default class ProductController {
   };
 
   getProduct = async (req: Request, res: Response) => {
+    const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});	
+    
     const productId = req.getId();
 
     try {
@@ -135,7 +142,7 @@ export default class ProductController {
         statusCode: StatusCode.OK,
         message: "Product retrieved successfully",
         template: "ProductView",
-        payload: { product: product.props },
+        payload: { product: product.props, categories: categoriesList },
       });
     } catch (error) {
       console.error("Error while retrieving product:", error);
@@ -148,13 +155,19 @@ export default class ProductController {
   };
 
   getProductList = async (req: Request, res: Response) => {
+    
+    const categories = await Category.readAll(this.sql);
+		let categoriesList = categories.map((category) => {
+			return {...category.props};
+		});	
+    
     try {
       const products = await Product.readAll(this.sql);
       await res.send({
         statusCode: StatusCode.OK,
         message: "Products retrieved successfully",
         template: "ProductList",
-        payload: { products: products },
+        payload: { products: products, categories: categoriesList },
       });
     } catch (error) {
       console.error("Error while retrieving products:", error);
