@@ -41,10 +41,10 @@ export default class Controller {
 	}
 
 	getHomeView = async (req: Request, res: Response) => {
-		// let products: Product[] = [];
-		// products = await Product.readAll(this.sql);
+		let products: Product[] = [];
+		products = await Product.readAll(this.sql);
 		// Only take the first 4 products (Featured products in HomeView)
-		// let firstFourProducts = await products.slice(0,4);
+		let firstFourProducts = await products.slice(0,4);
 
 		const categories = await Category.readAll(this.sql);
 		let categoriesList = categories.map((category) => {
@@ -57,7 +57,7 @@ export default class Controller {
 			template: `HomeView`,
 			payload: {
 				title: "Home",
-				// products: firstFourProducts,
+				products: firstFourProducts,
 				categories: categoriesList,
 			}
     	});
